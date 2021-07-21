@@ -1,0 +1,16 @@
+n, m, k = map(int, input().split())
+num = list(map(int, input().split()))
+sum = 0
+count = 0
+
+num.sort(reverse=True)
+
+for _ in range(m):
+    if count < k:
+        sum += num[0]
+        count += 1
+    else:
+        sum += num[1]
+        count = 0
+
+print(sum)
