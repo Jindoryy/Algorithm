@@ -1,16 +1,15 @@
 n, m, k = map(int, input().split())
 num = list(map(int, input().split()))
-sum = 0
-count = 0
 
-num.sort(reverse=True)
+num.sort()
+first = num[n - 1]
+second = num[n - 2]
 
-for _ in range(m):
-    if count < k:
-        sum += num[0]
-        count += 1
-    else:
-        sum += num[1]
-        count = 0
+count = int(m / (k + 1)) * k
+count += m % (k + 1)
 
-print(sum)
+result = 0
+result += (count) * first
+result += (m - count) * second
+
+print(result)
