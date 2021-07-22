@@ -1,0 +1,11 @@
+n, m = map(int, input().split())
+
+card_min = []
+
+for _ in range(n):
+    card = list(map(int, input().split()))
+    card_min.append(min(card))
+
+result = max(card_min)
+
+print(result)
