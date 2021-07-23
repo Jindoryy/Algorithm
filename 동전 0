@@ -1,1 +1,15 @@
 
+n, k = map(int, input().split())
+tmp = []
+cnt = 0
+for _ in range(n):
+    tmp.append(int(input()))
+
+tmp.sort(reverse=True)
+
+for i in range(n):
+    if k >= tmp[i]:
+        cnt += (k // tmp[i])
+        k %= tmp[i]
+
+print(cnt)
