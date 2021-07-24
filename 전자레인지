@@ -1,0 +1,13 @@
+n = int(input())
+time = [300, 60, 10]
+result = [0] * 3
+
+for i in range(len(time)):
+    if n >= time[i]:
+        result[i] = (n // time[i])
+        n %= time[i]
+
+if n == 0:
+    print(*result)
+else:
+    print(-1)
