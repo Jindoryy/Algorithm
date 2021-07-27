@@ -1,0 +1,27 @@
+def isprime(x):
+    if x == 1:
+        return False
+    for i in range(2, x//2+1):
+        if x % i == 0:
+            return False
+    return True
+
+def reverse(x):
+
+    tmp = 0
+    while x > 0:
+        t = x % 10
+        tmp = tmp * 10 + t
+        x //= 10
+    return tmp
+
+n = int(input())
+num = list(map(int, input().split()))
+
+for i in num:
+    res = reverse(i)
+    if isprime(res):
+        print(res, end=' ')
+        
+# def reverse(x): 즉 숫자 뒤집는 아이디어가 중요
+# def isprime(x): 또한 마찬가지로 소수 판별로서 중요
