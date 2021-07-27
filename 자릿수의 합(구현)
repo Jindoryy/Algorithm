@@ -1,0 +1,24 @@
+def digit_sum(x):
+    x = str(x)
+    sum_x = 0
+
+    for i in x:
+        sum_x += int(i)
+    return sum_x
+
+n = int(input())
+num = list(map(int, input().split()))
+com = 0
+res = 0
+max_sum = 0
+
+
+for i in num:
+    max_sum = digit_sum(i)
+    if com < max_sum:
+        com = max_sum
+        res = i
+
+print(res)
+
+# 문자열로 바꿔서 반복문으로 체크하는거 확인
