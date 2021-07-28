@@ -1,0 +1,11 @@
+n = int(input())
+list1 = list(map(int, input().split()))
+m = int(input())
+list2 = list(map(int, input().split()))
+
+tmp = list1 + list2
+tmp.sort()
+
+print(*tmp)
+
+# 그냥 간단한 리스트 합치는 문제
