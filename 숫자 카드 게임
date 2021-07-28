@@ -9,3 +9,4 @@ for _ in range(n):
 result = max(card_min)
 
 print(result)
+#
