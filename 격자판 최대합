@@ -1,0 +1,23 @@
+n = int(input())
+a = [list(map(int, input().split())) for _ in range(n)]
+max_a = 0
+
+for i in range(n):
+    sum1 = sum2 = 0
+    for j in range(n):
+        sum1 += a[i][j]
+        sum2 += a[j][i]
+    if max_a < max(sum1, sum2):
+        max_a = max(sum1, sum2)
+
+sum3 = 0
+
+for i in range(n):
+    sum3 += a[i][i]
+
+if max_a < sum3:
+    max_a = sum3
+
+print(max_a)
+
+# 가볍게 쉬운 문제
