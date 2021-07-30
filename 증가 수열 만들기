@@ -27,3 +27,4 @@ while lt <= rt:
 print(len(res), res, sep='\n')
 
 # 반복문 내에서 두번째 if~else 구문이 중요함!
+# 리스트.clear()도 중요한 문법
