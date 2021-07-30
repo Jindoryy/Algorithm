@@ -1,0 +1,19 @@
+a = [list(map(int, input().split())) for _ in range(7)]
+cnt = 0
+
+for i in range(3):
+    for j in range(7):
+        tmp = a[j][i:i+5] # 행은 슬라이스 가능
+        if tmp == tmp[::-1]:
+            cnt += 1
+
+        for k in range(2): # 열은 슬라이스 불가능 - 반복문 이용
+            if a[i+k][j] != a[i+5-k-1][j]:
+                break
+        else:
+            cnt += 1
+
+print(cnt)
+
+# 너무 어려운데?
+# 특이 a[j][i:i+5] 아이디어 떠올리는거랑 for k in range(2): if a[i+k][j] != a[i+5-k-1][j]: 부분
