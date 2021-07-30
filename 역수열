@@ -1,0 +1,15 @@
+n = int(input())
+a = list(map(int, input().split()))
+tmp = [0 for _ in range(n)]
+
+for i in range(n):
+    for j in range(n):
+        if a[i] == 0 and tmp[j] == 0: # a[i]==0은 들어갈 위치를 찾은 상태, tmp[j]==0은 빈공간
+            tmp[j] = i+1
+            break
+        elif tmp[j] == 0: # 한개씩 줄여 나가면 앞에 if문에서 자리를 잡게됨
+            a[i] -= 1
+
+print(*tmp)
+
+# 너무 어려운데 자주 봐야할거같은 문제
