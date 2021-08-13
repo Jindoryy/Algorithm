@@ -12,3 +12,4 @@ for i in range(n-1):
     result += cost * distance[i]
     
 print(result)
+#
