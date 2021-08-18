@@ -23,7 +23,7 @@ if __name__ == "__main__":
     
 # 80점 짜리 코드임
 # 강사코드는 아이디어가 어렵고 실행이 안되는데? ;;
-
+#
 
 def DFS(L, sum, tsum):
     global res
