@@ -16,3 +16,4 @@ for i in range(n):
 print(sum)
 
 # 못푼 문제인데 아이디어 떠올리는게 중요한거 같음
+#
