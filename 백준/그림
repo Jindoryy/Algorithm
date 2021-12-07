@@ -29,7 +29,7 @@ dx = [1, 0, -1, 0]
 
 def bfs(y, x):
     rs = 1
-    q = [(j, x)]
+    q = [(y, x)]
     while q:
         ey, ex = q.pop()
         for k in range(4):
