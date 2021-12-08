@@ -1,0 +1,35 @@
+"""
+1. 아이디어
+- BFS를 이용하여 count 하면됨
+3. 자료구조
+- 인접리스트
+- Queue
+"""
+
+from collections import deque
+
+n = int(input())
+m = int(input())
+graph = [[] for _ in range(n+1)]
+visited = [False] * (n+1)
+
+for _ in range(m):
+    a, b = map(int, input().split())
+    graph[a].append(b)
+    graph[b].append(a)
+
+def bfs(graph, visited, start):
+    global count
+    q = deque([start])
+    visited[start] = True
+    while q:
+        v = q.popleft()
+        for i in graph[v]:
+            if not visited[i]:
+                q.append(i)
+                visited[i] = True
+                count += 1
+
+count = 0
+bfs(graph, visited, 1)
+print(count)
