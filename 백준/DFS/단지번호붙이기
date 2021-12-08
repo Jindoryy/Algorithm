@@ -1,0 +1,48 @@
+"""
+1. 아이디어
+- 2중 for, 값 1 && 방문X -> DFS
+- DFS를 통해 찾은 값을 저장 후 정렬해서 출력
+2. 시간복잡도
+- DFS : O(V+E)
+- V, E : N^2, 4N^2
+- V+E : 5N^2(상수제외) - N^2 = 625
+3. 자료구조
+- 그래프 저장 : int[][]
+- 방문여부 : bool[][]
+- 결과값 : int[]
+"""
+
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+map = [list(map(int, input().strip())) for _ in range(n)] # sys값으로 받으면 개행문자가 들어와서 strip으로 없앰
+chk = [[False] * n for _ in range(n)]
+res = []
+each = 0
+
+dx = [0, 0, -1, 1]
+dy = [1, -1, 0, 0]
+
+def dfs(x, y):
+    global each
+    each += 1
+    for k in range(4):
+        mx = x + dx[k]
+        my = y + dy[k]
+        if 0 <= mx < n and 0 <= my < n:
+            if map[mx][my] == 1 and not chk[mx][my]:
+                chk[mx][my] = True
+                dfs(mx, my)
+
+for i in range(n):
+    for j in range(n):
+        if map[i][j] == 1 and not chk[i][j]:
+            chk[i][j] = True
+            each = 0
+            dfs(i, j)
+            res.append(each)
+
+print(len(res))
+for i in sorted(res):
+    print(i)
