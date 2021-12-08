@@ -1,0 +1,57 @@
+"""
+1. 아이디어
+- 2중 for -> 값 '1' && 방문x -> BFS
+- BFS 돌면서 방문한 횟수를 체크한다 = 단지에 속하는 집의 개수
+- BFS가 끝나면 빈 리스트에 return받은 값을 집어넣고 마지막에 오름차순으로 출력한다.
+
+2. 시간복잡도
+- BFS : O(V+E)
+- V : N*M = 25 * 25 = 625(N과 M의 최대값)
+- E : 4V(한 정점에서 간선의 최대 개수 : 4) = 4 * 625 = 2500 < 2억 (1초에 2억개 연산)
+
+3. 자료구조
+- 미로 : str[][] 이용 -> 숫자를 연속해서 입력받기 때문에 str사용
+- 방문여부 : bool[][] 이용
+- 단지에 속하는 집 개수 : [] 이용
+- Queue-deque라이브러리(BFS) 이용
+"""
+
+from collections import deque
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+miro = [list(input().rstrip()) for _ in range(n)]
+chk = [[False] * n for _ in range(n)]
+cpx = [] # 단지
+
+dx = [0, 0, -1, 1]
+dy = [-1, 1, 0, 0]
+
+def bfs(x, y): # bfs를 돌면서 방문할때마다 값을 갱신한다.
+    q = deque([(x, y)])
+    house = 1
+    while q:
+        px, py = q.popleft()
+        for k in range(4):
+            mx = px + dx[k]
+            my = py + dy[k]
+            if 0 <= mx < n and 0 <= my < n:
+                if miro[mx][my] == '1' and not chk[mx][my]:
+                    chk[mx][my] = True
+                    house += 1
+                    q.append((mx, my))
+    return house
+
+for i in range(n):
+    for j in range(n):
+        if miro[i][j] == '1' and not chk[i][j]:
+            miro[i][j] = 0
+            chk[i][j] = True
+            cpx.append(bfs(i, j)) # bfs에서 return된 값은 단지 내 집의 총 개수, 여기선 총 3번 bfs가 호출됨
+
+cpx.sort()
+
+print(len(cpx))
+for i in cpx:
+    print(i)
