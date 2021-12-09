@@ -1,0 +1,45 @@
+"""
+아이디어
+- bfs가 몇번 호출 되는지 세지 말고 최단거리를 그래프에 기록하는 걸로 찾기
+주의!
+- (틀림) bfs를 호출할 떄는 이미 최단거리가 그래프에 기록되고 있으니깐 1(익은토마토) 이상이 적혔을 때 호출되도록 해야함
+- (맞음) 위의 틀린방법대로 하면 안된다. 원래 하던 bfs호출 방식(2중 for문 - 1인 경우 bfs호출)으로 하면 1(익은토마토)가 2개 이상인 경우에는
+        첫번째 1은 제대로 되지만 두번째 1은 큐에 뒤쪽으로 밀려나서 이상한 값이 나온다.
+         -> 2중 for문을 통해 값이 1인 경우 큐에 미리 넣어 놓아야 한다.
+- bfs내에서는 0(안익은토마토)인 경우 최단거리를 갱신하고 큐에 넣도록 해야함. (조건문 ==0 확인)
+- 다른 문제와는 다르게 그래프 내에서 최단거리가 갱신되고 있고 bfs내에서 0인 경우를 찾고있으므로
+  굳이 visited변수를 활용해 방문여부를 체크 할 필요가 없는것 같다.
+"""
+
+from collections import deque
+
+n, m = map(int, input().split())
+graph = [list(map(int, input().split())) for _ in range(m)]
+
+dx, dy = [0, 0, -1, 1], [-1, 1, 0, 0]
+
+def bfs():
+    while q:
+        px, py = q.popleft()
+        for k in range(4):
+            mx, my = px + dx[k], py + dy[k]
+            if 0 <= mx < m and 0 <= my < n:
+                if graph[mx][my] == 0: # 안익은 토마토의 경우 최단거리를 갱신하고 큐에 넣도록 해야함
+                    graph[mx][my] = graph[px][py] + 1
+                    q.append((mx, my))
+
+q = deque([])
+for i in range(m):
+    for j in range(n):
+        if graph[i][j] == 1: # 1인 경우 따로 큐에 집어넣어줘야 함. (안하면 1(익은 토마토)이 2개 이상인 경우 동시순회가 안된다)
+            q.append((i, j))
+bfs()
+
+res = 0
+for i in graph: # 그래프 내부를 돌면서 0(안익은토마토)이 발견되면 -1을 출력하고 강제종료
+    for j in i:
+        if j == 0:
+            print(-1)
+            exit(0)
+    res = max(res, max(i)) # 한 행이 끝날때 마다 최댓값을 갱신
+print(res - 1) # 1인 경우 호출되서 +1 해나가기 때문에 일 수로 적용하려면 -1 해줘야 함.
