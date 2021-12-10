@@ -1,0 +1,27 @@
+"""
+아이디어
+- 아이디어가 전혀 떠오르지 않아서 답안을 참고했으니 여러번 풀어봐야할듯
+빈 리스트를 만들어서 그 안에 호출된 횟수를 기록하는 방식으로 풀었음
+"""
+
+from collections import deque
+import sys
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+res = [0] * (100000 + 1) # 문제에서 제시한 입력값에 대한 제한사항 100000까지 설정
+
+def bfs():
+    q = deque([n])
+    while q:
+        x = q.popleft()
+        if x == m:
+            print(res[x])
+            break
+
+        for i in (x-1, x+1, x*2): # 3가지 상황에 대하여 큐에 계속 집어 넣는다.
+            if 0 <= i <= 100000 and not res[i]:
+                res[i] = res[x] + 1 # res변수 안에는 호출된 횟수가 계속 +1 되고 위의 if문에서 m값과 같아지면 총 호출된 횟수를 print함
+                q.append(i)
+
+bfs()
