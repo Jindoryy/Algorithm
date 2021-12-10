@@ -1,0 +1,38 @@
+"""
+아이디어
+- 인접 리스트를 활용해서 bfs가 호출되는 횟수를 체크하면 되지 않을까? 그렇게 하면 연결 요수의 개수가 체크될 것 같다.
+주의!
+- 이상하게 pypy3가 아닌 python3로 제출하면 시간초과가 난다. pypy3는 정답 처리가 됐다.
+그래서 sys.stdin.readline 으로 해서 python3로 제출하니 또 정답처리가 됐다.
+"""
+
+from collections import deque
+import sys
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+graph = [[] for _ in range(n+1)] # 인덱스 0을 제외한 꼭짓점으 개수만큼 생성
+visited = [False] * (n+1)
+cnt = 0
+
+def bfs(start): # 전형적인 인접 리스트 bfs 구현
+    visited[start] = True
+    q = deque([start])
+    while q:
+        px = q.popleft()
+        for mx in graph[px]:
+            if not visited[mx]:
+                visited[mx] = True
+                q.append(mx)
+
+for _ in range(m):
+    a, b = map(int, input().split())
+    graph[a].append(b)
+    graph[b].append(a)
+
+for start in range(1, n+1): # 1번 꼭짓점부터 방문하지 않았다면 bfs를 호출한다. 그리고 연결 요수의 개수를 +1 해준다.
+    if not visited[start]:
+        bfs(start)
+        cnt += 1
+
+print(cnt)
