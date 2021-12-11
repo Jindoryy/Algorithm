@@ -1,0 +1,30 @@
+"""
+1. 아이디어
+- 투포인터 활용
+- for문으로 처음에 m개의 값들을 저장
+- 다음 인덱스 더해주고 이전 인덱스 빼줌
+- 이때마다 최댓값을 갱신
+2. 시간복잡도
+- O(N) : 10만 가능
+"""
+
+import sys
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+lst = list(map(int, input().split()))
+tmp, sum = 0, 0
+
+# m개를 더해주기
+for i in range(m):
+    tmp += lst[i]
+
+sum = tmp
+
+# 다음 인덱스 더해주고 이전 인덱스 빼기
+for i in range(m, n):
+    tmp += lst[i]
+    tmp -= lst[i-m]
+    sum = max(sum, tmp)
+
+print(sum)
