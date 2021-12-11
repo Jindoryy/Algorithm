@@ -1,0 +1,29 @@
+"""
+좀 어려운데 계속 봐야할듯 이해는 함
+"""
+
+import sys
+
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+res = []
+visited = [False] * (n + 1)
+
+
+def recur(v, cnt):
+    if cnt == m:
+        print(*res)
+        return
+
+    for i in range(v, n+1):
+        if not visited[i]:
+            visited[i] = True
+            res.append(i)
+            recur(i, cnt+1) # 이 부분이 핵심코드! i를 인자로 넘겨줌으로써 v가 2일때 i값을 넘기면 다음 재귀에서는 i가 2부터 시작하니깐 자동으로 중복이 없어짐
+            visited[i] = False
+            res.pop()
+
+recur(1, 0)
+
+#print(res)
