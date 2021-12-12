@@ -1,0 +1,60 @@
+"""
+1. 아이디어
+- 특정 조건 만족하는 한 계속이동 -> while문 이용
+- 4방향 탐색 먼저 수행 -> 빈칸이 있을 경우 이동
+- 4방향 탐색 안될 경우, 뒤로 한칸가서 반복
+2. 시간복잡도
+- while문 최대 : N * M
+- 각 칸에서 4방향 연산 수행 : 4
+  결국 N * M * 4 = O(N*M)
+3. 자료구조
+- 전체지도 : int[][]
+- 내 위치, 방향 : int, int, int (0 : 청소X, 1 : 벽, 2 : 청소O)
+"""
+
+import sys
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+x, y, d = map(int, input().split())
+map = [list(map(int, input().split())) for _ in range(n)]
+cnt = 0
+
+# 북, 동, 남, 서
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+while True:
+    if map[x][y] == 0:
+        map[x][y] = 2
+        cnt += 1
+
+    sw = False
+
+    for k in range(1, 4 + 1):
+        mx = x + dx[d-k]
+        my = y + dy[d-k]
+        if 0 <= mx < n and 0 <= my < m:
+            if map[mx][my] == 0:
+                # 그 방향으로 회전한 다음 한 칸을 전진하고 1번부터 진행한다.
+                d = (d-k+4) % 4 # d-k가 -5가 되어서 인덱스 범위를 벗어나더라도 +4를 한후 4로 나눈 나머지는 3으로 다시 맨끝으로 돌아옴
+                x = mx
+                y = my
+                sw = True
+                break
+
+    # 네 방향 모두 청소가 이미 되어있거나 벽인 경우
+    if sw == False:
+        # 뒤쪽 방향이 막혀 있는지 확인
+        mx = x - dx[d] # 다음과 같이 빼주면 뒤쪽 확인 가능
+        my = y - dy[d]
+        if 0 <= mx < n and 0 <= my < m:
+            if map[mx][my] == 1:
+                break
+            else: # 바라보는 방향을 유지한 채로 한 칸 후진을 하고 2번으로 돌아간다.
+                x = mx
+                y = my
+        else:
+            break
+
+print(cnt)
