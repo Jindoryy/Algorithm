@@ -8,4 +8,6 @@ Pythonic Code
 3. swap 구현 (튜플 이용)
 * ex) a, b = b, a
 4. join (str 문자형 일떄만 사용가능 - map을 이용해 int에서 str로 변경 하면서 사용 가능)
-* print(' '.join(map(str, int형 리스트 기입))
+* ex) print(' '.join(map(str, int형 리스트 기입))
+5. 리스트 자연스럽게 출력
+* ex) print(list) => [1, 2, 3, 4, 5] / print(*list) => 1, 2, 3, 4, 5
