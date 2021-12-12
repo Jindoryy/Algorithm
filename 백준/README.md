@@ -1,4 +1,4 @@
-Pythonic Codep
+Pythonic Code
 ==
 
 1. enumerate() = 인덱스, 값 반환
