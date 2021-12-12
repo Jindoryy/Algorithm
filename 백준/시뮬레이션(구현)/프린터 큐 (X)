@@ -1,0 +1,24 @@
+from collections import deque
+
+import sys
+input = sys.stdin.readline
+
+T = int(input())
+
+for _ in range(T):
+    n, m = map(int, input().split())
+    q = deque(list(map(int, input().split())))
+    idx_q = deque(list(range(n))) # 큐에 인덱스를 따로 저장해서 같이 append, popleft를 해줌으로써 m값과 일치하는지 확인한다.
+    cnt = 0
+
+    while q:
+        if q[0] == max(q):
+            q.popleft()
+            cnt += 1
+            if idx_q.popleft() == m: # 따로 저장해놓은 인덱스와 m값과 일치하면 print
+                print(cnt)
+
+        else:
+            q.append(q.popleft())
+            idx_q.append(idx_q.popleft())
+
