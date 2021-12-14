@@ -1,0 +1,14 @@
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+lst = list(map(int, input().split()))
+sum, tmp = 0, 0
+
+lst.sort()
+
+for i in lst:
+    sum += (tmp + i)
+    tmp += i
+
+print(sum)
