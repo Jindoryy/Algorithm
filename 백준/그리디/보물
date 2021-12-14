@@ -1,0 +1,15 @@
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+A = list(map(int, input().split()))
+B = list(map(int, input().split()))
+sum = 0
+
+A.sort()
+
+for i in range(n):
+    sum += (A[i] * max(B)) # B의 원소들은 정렬하지 말라는 조건이 있기 때문에 이렇게 작성했는데 조건이 없었다면 내림차순으로 정렬해서 풀었을 것 이다.
+    B.remove(max(B))
+
+print(sum)
