@@ -1,0 +1,22 @@
+'''
+아이디어
+'-' 를 기준으로 나눈 다음 반복문에서 '+' 를 기준으로 다시 나눈다
+제일 앞에 있는 숫자만 대입시킨 후 나머지는 '-' 뒤에 괄호가 쳐져 있다고 생각하면 되므로 다음과 같은 코드가 작성됨.
+'''
+
+num = input().split('-')
+res = []
+
+for i in num:
+    tmp = 0
+    for j in i.split('+'):
+        tmp += int(j)
+
+    res.append(tmp)
+
+sum = res[0]
+
+for i in range(1, len(res)):
+    sum -= res[i]
+
+print(sum)
