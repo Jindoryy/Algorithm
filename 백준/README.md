@@ -11,3 +11,4 @@ Pythonic Code
 * ex) print(' '.join(map(str, int형 리스트 기입))
 5. 리스트 자연스럽게 출력
 * ex) print(list) => [1, 2, 3, 4, 5] / print(*list) => 1 2 3 4 5
+6. while ~ else 구문, for ~ else 구문
