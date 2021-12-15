@@ -1,0 +1,15 @@
+n = int(input())
+weight = [int(input()) for _ in range(n)]
+weight.sort()
+
+lift = 0
+
+for i in range(len(weight)):
+    tmp = weight[i] * n
+
+    if tmp > lift:
+        lift = tmp
+
+    n -= 1
+
+print(lift)
