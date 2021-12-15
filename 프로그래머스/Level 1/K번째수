@@ -1,0 +1,17 @@
+# 내가 문제한 풀이
+def solution(array, commands):
+    answer = []
+    
+    for i in commands:
+        tmp = array[i[0]-1:i[1]]
+        tmp.sort()
+        answer.append(tmp[i[2]-1])
+    return answer
+    
+# 다른 사람이 풀이한 것중 좋아 보이는 코드 (깔끔해보임 - i, j, k = commands 부분 다시 볼 필요가 있어보임)
+def solution(array, commands):
+    answer = []
+    for command in commands:
+        i,j,k = command
+        answer.append(list(sorted(array[i-1:j]))[k-1])
+    return answer
