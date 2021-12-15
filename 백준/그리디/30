@@ -1,0 +1,40 @@
+# 내가 한 풀이(정답을 맞추긴 했으나 난잡)
+n = [input()]
+lst = []
+
+for i in n:
+    lst.append(i)
+
+lst.sort(reverse=True)
+res = []
+tmp = ''
+
+for i in range(len(lst)):
+    tmp += lst[i]
+
+tmp = int(tmp)
+
+if tmp % 30 == 0:
+    print(tmp)
+else:
+    print(-1)
+    
+# 인터넷 보고 깔끔하게 작성한 방법
+"""
+30의 배수인지 아닌지 확인하는 법
+- 30의 배수는 10의 배수이니 마지막 숫자가 0
+- 그리고 3으로 나누어져야함
+"""
+
+n = list(input())
+
+answer = -1
+
+if min(n) == '0': # 마지막 숫자가 0이라면 (첫번째 조건을 만족한다면)
+    tmp = sorted(n, reverse=True)
+    tmp = int(''.join(tmp))
+
+    if tmp % 3 == 0: # 3으로 나누어 진다면 (두번째 조건을 만족한다면 answer에 값을 대입)
+        answer = tmp
+
+print(answer)
