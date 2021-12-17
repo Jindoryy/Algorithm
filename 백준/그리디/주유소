@@ -1,0 +1,18 @@
+"""
+처음 출발할 때 자동차에 기름이 없어서 무조건 기름을 넣고 출발해야 하므로 tmp라는 변수안에 가격을 대입한다.
+반복문을 돌면서 최저값이 있을 떄 마다 tmp에 저장하고 거리 값과 함께 곱하다보면 최소의 비용으로 도로를 지나갈 수 있다.
+"""
+
+n = int(input())
+long = list(map(int, input().split()))
+price = list(map(int, input().split()))
+tmp = price[0]
+sum = 0
+
+for i in range(n-1): # 길이는 각 지점(꼭짓점)보다 -1개 적으므로 n-1로 설정함
+    sum += (tmp * long[i])
+
+    if tmp > price[i+1]:
+        tmp = price[i+1]
+
+print(sum)
