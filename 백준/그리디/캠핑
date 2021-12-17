@@ -1,0 +1,24 @@
+"""
+난잡하다 난잡해 ㅋㅋ..
+"""
+
+i = 1
+
+while 1:
+    n, m, k = map(int, input().split())
+
+    if n == 0 and m == 0 and k == 0:
+        break
+
+    sum = 0
+
+    sum += (k // m) * n
+    k %= m
+
+    if n < k:
+        sum += n
+    else:
+        sum += k
+
+    print(f"Case {i}:", sum)
+    i += 1
