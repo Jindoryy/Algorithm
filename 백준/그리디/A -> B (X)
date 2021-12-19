@@ -1,0 +1,28 @@
+"""
+그리디 알고리즘과 BFS알고리즘을 결합한 문제
+흐름대로 읽어나가면 답이있다!
+"""
+
+from collections import deque
+import sys
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+
+def bfs(num, target):
+    cnt = 0
+    q = deque([(num, cnt)]) # 연산이 이루어진 개수는 튜플 형태로 묶어서 관리해준다!
+    while q:
+        num, cnt = q.popleft()
+        if num == target:
+            return cnt+1 # 필요한 연산에 +1을 해서 출력하라고 했으므로 +1을 해준다.
+
+        if num*2 <= target:
+            q.append((num*2, cnt+1))
+
+        if int(str(num)+'1') <= target:
+            q.append((int(str(num)+'1'), cnt+1))
+    return -1
+
+res = bfs(n, m)
+print(res)
