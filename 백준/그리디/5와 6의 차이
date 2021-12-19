@@ -1,0 +1,12 @@
+n, m = input().split()
+res = []
+
+n = n.replace('6', '5')
+m = m.replace('6', '5')
+res.append(int(n)+int(m))
+
+n = n.replace('5', '6')
+m = m.replace('5', '6')
+res.append(int(n)+int(m))
+
+print(*res)
