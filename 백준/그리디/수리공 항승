@@ -1,0 +1,23 @@
+n, m = map(int, input().split())
+loc = list(map(int, input().split()))
+loc.sort()
+
+cnt = 0
+
+"""
+우선 하나 막으려면 길이가 1인 테이프 1개가 필요하다는 말이다.
+시작지점과 그 시작지점에 테이프길이를 더하면 그 사이의 위치에는 모두 막을 수 있다.
+"""
+start = loc[0]
+end = loc[0] + m
+cnt = 1
+
+for i in range(n):
+    if start <= loc[i] < end: # 테이프의 시작지점과 마지막지점에 위치해 있으면 카운트 하지않고 다음 위치로 넘어감
+        continue
+    else: # 테이프의 시작지점과 마지막지점에 위치하지 않은 경우 테이프의 개수를 카운트 하고 다시 길이를 설정함
+        cnt += 1
+        start = loc[i]
+        end = loc[i] + m
+
+print(cnt)
