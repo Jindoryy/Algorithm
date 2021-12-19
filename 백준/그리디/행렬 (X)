@@ -1,0 +1,25 @@
+n, m = map(int, input().split())
+a = [list(map(int, list(input()))) for _ in range(n)]
+b = [list(map(int, list(input()))) for _ in range(n)]
+cnt = 0
+
+def reverse(x, y):
+    for i in range(x, x+3):
+        for j in range(y, y+3):
+            a[i][j] = 1 - a[i][j]
+
+def check():
+    for i in range(n):
+        for j in range(m):
+            if a[i][j] != b[i][j]:
+                return False
+    return True
+
+
+for i in range(n-2): # 이 부분이 핵심 부분! : n-2, m-2는 값이 다른지 확인하는 최대한의 범위이다.
+    for j in range(m-2):
+        if a[i][j] != b[i][j]:
+            reverse(i, j)
+            cnt += 1
+
+print(cnt if check() else -1)
