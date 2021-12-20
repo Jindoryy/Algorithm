@@ -1,0 +1,16 @@
+n = 9
+tall = [int(input()) for _ in range(9)]
+sum = sum(tall)
+
+for i in range(n-1):
+    for j in range(i+1, n):
+        if sum - tall[i] - tall[j] == 100:
+            a, b = tall[i], tall[j]
+            break
+
+tall.remove(a)
+tall.remove(b)
+
+tall.sort()
+for i in tall:
+    print(i)
