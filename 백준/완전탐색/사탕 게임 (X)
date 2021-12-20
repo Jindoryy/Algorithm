@@ -1,0 +1,56 @@
+"""
+아이디어
+1. 사탕을 2차원 리스트로 받는다.
+2. 2중 for 문을 돌면서 가로 양옆의 사탕을 바꾸고 몇개 먹을 수 있는지 카운트 한다.
+세로 위아래의 사탕을 바꾸고 몇개 먹을 수 있는지 카운트 한다.
+바꾼 로직 안에서 정의한 카운트 함수를 사용한다.
+3. 2중 for문 안에서 모든 사탕을 바꾸며 카운트 함수를 돌렸으면
+카운트 함수 내에서 가장 많이 먹을 수 있는 사탕 수에 대해서는 계속 갱신이 되었기 때문에, 해당 값을 출력 하면 된다.
+
+시간복잡도
+- O(N^4)라 하더라도 N의 범위가 작기 때문에 가능하다.
+"""
+
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+candy = [list(input()) for _ in range(n)]
+res = 0
+
+def check(): # 최대 몇개 먹을 수 있는지 확인하는 함수
+    # cnt는 사탕의 개수를 의미한다.
+    global res
+    for i in range(n): # 가로줄(행)을 확인하는 함수
+        cnt = 1
+        for j in range(n-1):
+            if candy[i][j] == candy[i][j+1]:
+                cnt += 1
+                res = max(res, cnt)
+            else: # 인접한 사탕이 서로 같지 않은 경우 다시 초기화
+                cnt = 1
+
+    for i in range(n): # 세로줄(열)을 확인하는 함수(i, j 위치 조심)
+        cnt = 1
+        for j in range(n-1):
+            if candy[j][i] == candy[j+1][i]:
+                cnt += 1
+                res = max(res, cnt)
+            else: # 인접한 사탕이 서로 같지 않은 경우 다시 초기화
+                cnt = 1
+
+for i in range(n): # 가로줄의 위치를 바꾸고 check함수를 통해 먹을 수 있는 사탕의 최대 개수를 구함
+    for j in range(n-1):
+        if candy[i][j] != candy[i][j+1]: # 문제조건에서 서로 다른 경우 바꾸라고 했으므로 참고한 블로그와 다르게 if문 추가해야함 (시간복잡도 더 낮춤)
+            candy[i][j], candy[i][j+1] = candy[i][j+1], candy[i][j] # 가로줄에서 인접한 사탕이 서로 다른 경우 교환
+            check()
+            candy[i][j], candy[i][j+1] = candy[i][j+1], candy[i][j] # 원래대로 돌려 놓기
+
+for i in range(n): # 세로줄의 위치를 바꾸고 check함수를 통해 먹을 수 있는 사탕의 최대 개수를 구함(i, j 위치 조심)
+    for j in range(n-1):
+        if candy[j][i] != candy[j+1][i]:
+            candy[j][i], candy[j+1][i] = candy[j+1][i], candy[j][i] # 세로줄에서 인접한 사탕이 서로 다른 경우 교환
+            check()
+            candy[j][i], candy[j+1][i] = candy[j+1][i], candy[j][i] # 원래대로 돌려 놓기
+
+print(res)
