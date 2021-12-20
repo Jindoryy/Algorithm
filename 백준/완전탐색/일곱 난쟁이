@@ -1,3 +1,7 @@
+"""
+이거근데 왜 for문 안에서 remove하니깐 왜 안되냐?;;
+"""
+
 n = 9
 tall = [int(input()) for _ in range(9)]
 sum = sum(tall)
