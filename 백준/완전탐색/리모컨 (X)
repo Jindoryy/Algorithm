@@ -1,0 +1,20 @@
+move = int(input())
+n = int(input())
+if n: # 고장난게 있을 경우에만 값을 입력받음
+    broken = list(input().split())
+else:
+    broken = []
+
+res = abs(100 - move) # 버튼을 누르지 않고 + or - 로 일일이 찾아가는 방법 (최대값)
+
+# 작은수에서 큰수로 이동할땐 500,000 까지만 보면 되지만
+# 반대로 큰수에서 작은수로 내려오는 경우가 더 최소가 될 수 있으므로 1,000,000 까지 봐야함
+for i in range(1000001):
+    for j in str(i):
+        if j in broken: # 해당 숫자를 번호를 눌러서 만들 수 없는 경우는 스탑
+            break
+    else: # 번호를 만들 수 있는 경우
+        # min(기존답, len(str(i)) + abs(i-move))
+        res = min(res, len(str(i)) + abs(i-move))
+
+print(res)
