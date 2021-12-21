@@ -1,0 +1,13 @@
+"""
+문제 잘 읽기 - 테스트 케이스 개수에 따라 반복 해야 함
+"""
+
+T = int(input())
+
+for _ in range(T):
+    num = int(input())
+    res = bin(num)[2:]
+
+    for i in range(len(res)):
+        if res[-i -1] == '1':
+            print(i, end=" ")
