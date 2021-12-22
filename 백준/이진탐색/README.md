@@ -8,6 +8,7 @@
 2. 시간복잡도
 * O(logN)
 3. 핵심코드 - 외우기
+'''
 def search(st, en, target):
     if st==en:
         pass
@@ -17,5 +18,8 @@ def search(st, en, target):
         search(mid+1, en, target)
     else:
         search(st, mid, target)
-
+'''
 ----
+
++ TIP
+입력의 개수가 1e^5 경우라면 의심
