@@ -1,0 +1,21 @@
+import sys
+input = sys.stdin.readline
+
+n, m = map(int, input().split()) # 나무 수, 필요한 나무 길이
+tree = list(map(int, input().split()))
+left, right = 1, max(tree) # 시작점, 끝점
+
+while left <= right:
+    mid = (left + right) // 2
+    cut_sum = 0 # 잘린 나무의 합
+
+    for i in tree:
+        if i > mid: # mid보다 큰 나무 높이는 잘림
+            cut_sum += (i - mid)
+
+    if cut_sum >= m: # 원하는 나무 높이보다 더 많이 잘렸으면
+        left = mid + 1
+    else: # 원하는 나무 높이보다 덜 잘렸으면
+        right = mid - 1
+
+print(right)
