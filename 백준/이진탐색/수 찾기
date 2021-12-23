@@ -1,0 +1,36 @@
+"""
+1. 아이디어
+- n개의 숫자를 정렬
+- m개를 for 돌면서, 이진탐색
+- 이진탐색 안에서 마지막에 데이터를 찾으면 1출력, 아니면 0출력
+2. 시간복잡도
+- n개 입력값 정렬 : O(NlogN)
+- m개를 n개중에서 탐색 : O(M + NlogN)
+3. 자료구조
+- n 저장 = int[]
+- m 저장 = int[]
+"""
+
+n = int(input())
+nums = list(map(int, input().split()))
+m = int(input())
+search = list(map(int, input().split()))
+
+nums.sort() # 정렬을 해야 이진탐색 가능
+
+def bisect(st, en, target):
+    if st == en:
+        if nums[st] == target:
+            print(1)
+        else:
+            print(0)
+        return
+
+    mid = (st + en) // 2
+    if nums[mid] < target:
+        bisect(mid+1, en, target)
+    else:
+        bisect(st, mid, target)
+
+for target in search:
+    bisect(0, n-1, target)
