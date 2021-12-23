@@ -1,0 +1,21 @@
+import sys
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+line = [int(input()) for _ in range(n)]
+left, right = 1, max(line)
+
+while left <= right:
+    mid = (left + right) // 2 # 자르려는 랜선의 길이
+    cut_cnt = 0 # 랜선을 자른 횟수
+
+    for i in line:
+        if i >= mid: # 가지고 있는 랜선이 자르려고 하는 랜선의 길이보다 "크거나 같은 경우 = 나무자르기는 빼기인 경우라서 등호가 없고 이 경우는 몫을 구하는 경우임."
+            cut_cnt += (i // mid)
+
+    if cut_cnt >= m: # 자른 횟수가 필요한 랜선의 개수보다 같거나 많은 경우
+        left = mid+1
+    else: # 자른 횟수가 필요한 랜선의 개수보다 작은 경우
+        right = mid-1
+
+print(right)
