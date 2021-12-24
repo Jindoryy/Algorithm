@@ -1,0 +1,28 @@
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+card = list(map(int, input().split()))
+m = int(input())
+search = list(map(int, input().split()))
+
+card.sort()
+
+def bisect(st, en, target):
+    if st == en:
+        if card[st] == target:
+            print(1, end=" ")
+        else:
+            print(0, end=" ")
+        return
+
+    mid = (st + en) // 2
+
+    if card[mid] >= target: # 이쪽 등호 조심해서 써야함 ( card[mid] > target 으로 쓰면 bisect(st, mid, target) 부분 이후
+                            # 다음 호출의 mid = (st + en) // 2 부분에서 자연스럽게 포함되지 않게 되서 탐색이 안된다.)
+        bisect(st, mid, target)
+    else:
+        bisect(mid+1, en, target)
+
+for target in search:
+    bisect(0, n-1, target)
