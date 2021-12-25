@@ -47,3 +47,40 @@ for i in range(n):
             bfs(i, j)
 
 print(miro[n-1][m-1])
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+"""
+1. 아이디어
+- 처음 풀때와는 다르게 visited 변수를 써야 할 필요성을 못느꼈다.
+  -> if miro[mx][my] == '1': 이 자체가 이미 방문하지 않았음을 의미하니깐. (방문을 했다면 최단거리의 숫자가 들어있을 것이다.)
+- if 0 <= mx < n and 0 <= my < m: 문구를 까먹었다. 항상 벽에 부딪히는 경우까지 생각해주자.
+"""
+
+import sys
+input = sys.stdin.readline
+
+from collections import deque
+
+n, m = map(int, input().split())
+miro = [list(input().strip()) for _ in range(n)]
+
+dx, dy = [0, 0, -1, 1], [-1, 1, 0, 0]
+
+def bfs(x, y):
+    miro[x][y] = 1
+    q = deque([(x, y)])
+
+    while q:
+        px, py = q.popleft()
+        for k in range(4):
+            mx = px + dx[k]
+            my = py + dy[k]
+            if 0 <= mx < n and 0 <= my < m:
+                if miro[mx][my] == '1':
+                    miro[mx][my] = miro[px][py] + 1
+                    q.append((mx, my))
+
+bfs(0, 0)
+
+print(miro[n-1][m-1])
