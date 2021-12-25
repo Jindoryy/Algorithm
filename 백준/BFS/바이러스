@@ -33,3 +33,37 @@ def bfs(graph, visited, start):
 count = 0
 bfs(graph, visited, 1)
 print(count)
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+import sys
+input = sys.stdin.readline
+
+from collections import deque
+
+n = int(input())
+m = int(input())
+com = [[] for _ in range(n+1)]
+visited = [False] * (n+1)
+
+for _ in range(m):
+    a, b = map(int, input().split())
+    com[a].append(b)
+    com[b].append(a)
+
+def bfs(x):
+    visited[x] = True
+    cnt = 0
+    q = deque([x])
+
+    while q:
+        px = q.popleft()
+        for i in com[px]:
+            if not visited[i]:
+                visited[i] = True
+                cnt += 1
+                q.append(i)
+
+    return cnt
+
+print(bfs(1))
