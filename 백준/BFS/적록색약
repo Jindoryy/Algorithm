@@ -1,0 +1,56 @@
+"""
+1. 아이디어
+- 일반 사람이 볼때는 그냥 bfs를 돌리고 적록색약인 사람이 볼때는 bfs를 돌리기 전에 R,G의 색깔을 하나로 통일시키고 bfs를 돌린다.
+2. 시간복잡도
+- bfs : O(V+E)
+- V : N * N
+- E : 4 * V
+- V+E : 5N^2 = N^2(상수무시) = 10000
+- 일반인, 적록색약인사람 2번 = 2 * 10000 < 2억(1초)
+"""
+
+import sys
+input = sys.stdin.readline
+
+from collections import deque
+
+n = int(input())
+photo = [list(input().strip()) for _ in range(n)]
+visited = [[False] * n for _ in range(n)]
+ans = []
+
+dx, dy = [0, 0, -1, 1], [-1, 1, 0, 0]
+
+def bfs(x, y):
+    visited[x][y] = True
+    q = deque([(x, y)])
+
+    while q:
+        px, py = q.popleft()
+        for k in range(4):
+            mx = px + dx[k]
+            my = py + dy[k]
+            if 0 <= mx < n and 0 <= my < n:
+                if photo[mx][my] == photo[px][py] and not visited[mx][my]: # 상하좌우 움직이기 전 색깔과 같으면 방문 처리
+                    visited[mx][my] = True
+                    q.append((mx, my))
+
+for _ in range(2): # 첫번째 for문은 일반 사람, 두번째 for문은 적록색약인 사람이 bfs를 탐색하도록 한다.
+    cnt = 0
+
+    for i in range(n):
+        for j in range(n):
+            if not visited[i][j]:
+                bfs(i, j)
+                cnt += 1
+
+    ans.append(cnt)
+
+    # 적록색약인 경우 R,G 둘 중 색깔을 한개로 통일 시킨 후 bfs를 탐색한다
+    for i in range(n):
+        for j in range(n):
+            visited[i][j] = False
+            if photo[i][j] == 'R':
+                photo[i][j] = 'G'
+
+print(*ans)
