@@ -1,0 +1,91 @@
+"""
+2차원을 3차원인거 처럼 작성해서 테스트케이스 다 맞았는데 왜 안되는지 모르겠네
+(테스트 케이스 다 맞았지만 틀린코드)
+"""
+
+import sys
+input = sys.stdin.readline
+
+from collections import deque
+
+n, m, h = map(int, input().split())
+box = [list(map(int, input().split())) for _ in range(m * h)]
+ans = 0
+
+q = deque([])
+
+for i in range(m*h):
+    for j in range(n):
+        if box[i][j] == 1:
+            q.append((i, j))
+
+dx = [0, 0, -1 ,1, -3, 3]
+dy = [-1, 1, 0, 0, 0, 0]
+
+while q:
+    px, py = q.popleft()
+
+    for k in range(6):
+        mx = px + dx[k]
+        my = py + dy[k]
+        if 0 <= mx < m*h and 0 <= my < n:
+            if box[mx][my] == 0:
+                box[mx][my] = box[px][py] + 1
+                q.append((mx, my))
+
+
+for i in box:
+    for j in i:
+        if j == 0:
+            print(-1)
+            exit(0)
+    ans = max(ans, max(i))
+
+print(ans-1)
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+import sys
+input = sys.stdin.readline
+
+from collections import deque
+
+n, m, h = map(int, input().split())
+box = [ [list(map(int, input().split())) for _ in range(m)] for _ in range(h)] # 3차원 리스트 생성
+ans = 0
+
+q = deque([])
+
+# 파이썬 3차원 리스트 : 리스트[높이인덱스][세로인덱스][가로인덱스] = 값
+for i in range(h): # 높이
+    for j in range(m): # 행
+        for k in range(n): #열
+            if box[i][j][k] == 1: # 익은 토마토 먼저 큐에 삽입
+                q.append((i, j, k)) # (높이, 행, 열)
+
+dx = [0, 0, -1 ,1, 0, 0]
+dy = [-1, 1, 0, 0, 0, 0]
+dz = [0, 0, 0, 0, -1, 1]
+
+while q:
+    pz, px, py = q.popleft() # (높이, 행, 열)
+
+    for k in range(6):
+        mx = px + dx[k]
+        my = py + dy[k]
+        mz = pz + dz[k]
+
+        if 0 <= mx < m and 0 <= my < n and 0 <= mz < h:
+            if box[mz][mx][my] == 0:
+                box[mz][mx][my] = box[pz][px][py] + 1
+                q.append((mz,mx,my)) # (높이, 행, 열)
+
+for i in box: # 높이 추출 
+    for j in i: # 행 추출
+        for k in j: # 한 행을 돌면서 값 추출
+            if k == 0:
+                print(-1)
+                exit(0)
+        ans = max(ans, max(j)) # 한 행 내에서 최댓값을 계속 갱신 해나감.
+
+print(ans-1) # 익은토마토 1에서 계속 +1일씩 해나갔으므로 일수를 출력할땐 -1 해줘야 함.
