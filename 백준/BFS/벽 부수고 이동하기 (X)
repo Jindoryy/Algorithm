@@ -1,0 +1,47 @@
+"""
+벽을 부신것을 나타내기 위해 real_map 이라는 3차원 배열을 활용 하였다.
+벽을 부술 수 있는 상태를 1로, 한번 부셔서 더이상 부술 수 없는 상태를 0으로 하였다
+큐의 pop한 값이 마지막 지점과 같다면 반복문을 탈출한다.
+
+3차원으로 문제 푸니깐 머릿속에 안그려져서 좀 어렵다.
+"""
+
+import sys
+input = sys.stdin.readline
+from collections import deque
+
+n, m = map(int, input().split())
+# 사용자에게 입력받을 2차원 배열
+fake_map = [ list(input().strip()) for _ in range(n) ]
+# 실제 거리가 계산되어지는 3차원 배열 (생성할때 주의)
+real_map = [ [[0] * m for _ in range(n)] for _ in range(2) ]
+
+dx, dy = [0, 0, -1, 1], [-1, 1, 0, 0]
+real_map[1][0][0] = 1 # 벽을 부술 수 있는 상태이다.
+q = deque([(1, 0, 0)])
+ans = -1
+
+while q:
+    wall, px, py = q.popleft()
+
+    if px == n-1 and py == m-1: # 마지막 지점에 도착했다면 값을 기록하고 break한다.
+        ans = real_map[wall][px][py]
+        break
+
+    for k in range(4):
+        mx = px + dx[k]
+        my = py + dy[k]
+
+        if 0 <= mx < n and 0 <= my < m:
+            if fake_map[mx][my] == '1' and wall == 1: # 벽으로 막혀 있고 부술 수 있는 기회가 있다면 벽을 부수고 기회를 박탈한다.
+                real_map[0][mx][my] = real_map[1][px][py] + 1
+                q.append((0, mx, my))
+
+            elif fake_map[mx][my] == '0' and real_map[wall][mx][my] == 0: # 길이 뚫려있다면 거리를 계속 더해 나간다.
+                real_map[wall][mx][my] = real_map[wall][px][py] + 1
+                q.append((wall, mx, my))
+
+for i in real_map:
+    for j in i:
+        print(j)
+print(ans)
