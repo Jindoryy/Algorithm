@@ -1,0 +1,59 @@
+"""
+백트래킹과 bfs를 사용하는 문제이다.
+어디에 벽을 세워야 최댓값이 나올 수 없기 때문에 모든 경우의 수에 대하여 탐색한다.
+처음 칸부터 마지막 칸 까지 빈칸을 순서대로 하나씩 3개 선택하여 벽을 세우고 bfs를 수행한 후 벽을 지우고 그 다음칸에
+다시 벽을 세우고 bfs를 수행하는 방식을 반복해야 한다.
+이렇게 진행하면서 최댓값을 저장한 후 모든 탐색이 끝나면 최댓값을 출력하면 된다.
+"""
+
+import sys
+input = sys.stdin.readline
+from collections import deque
+import copy
+
+n, m = map(int, input().split())
+map = [ list(map(int, input().split())) for _ in range(n) ]
+ans = 0
+
+dx, dy = [0, 0, -1, 1], [-1, 1, 0, 0]
+
+def bfs():
+    q = deque()
+    tmp_map = copy.deepcopy(map) # 입력받은 map은 벽을 세우는 용도로만 사용하고 실제 바이러스를 퍼뜨리는 것은 새로운 map을 생성해서 복사한다.
+
+    for i in range(n):
+        for j in range(m):
+            if tmp_map[i][j] == 2: # 바이러스가 퍼져 있는 곳의 좌표를 큐에 집어넣는다.
+                q.append((i, j))
+
+    while q:
+        px, py = q.popleft()
+        for k in range(4):
+            mx = px + dx[k]
+            my = py + dy[k]
+            if 0 <= mx < n and 0 <= my < m:
+                if tmp_map[mx][my] == 0:
+                    tmp_map[mx][my] = 2
+                    q.append((mx, my))
+
+    global ans
+    cnt = 0
+    for i in range(n):
+        cnt += tmp_map[i].count(0) # 바이러스가 퍼져 있지 않은 안전지대의 개수를 카운트 한다.
+
+    ans = max(ans, cnt)
+
+def wall(cnt): # 백 트래킹을 이용해 벽을 3개 세운다음 bfs를 호출한다
+    if cnt == 3:
+        bfs()
+        return
+
+    for i in range(n):
+        for j in range(m):
+            if map[i][j] == 0:
+                map[i][j] = 1
+                wall(cnt+1)
+                map[i][j] = 0 # bfs탐색을 하고 돌아온 후에는 map배열은 다시 0을 초기화 해준다. (벽을 다시 세우기 위해 초기화 하는 과정)
+
+wall(0)
+print(ans)
