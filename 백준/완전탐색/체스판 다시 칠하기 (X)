@@ -1,0 +1,30 @@
+import sys
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+board = [ list(input().strip()) for _ in range(n) ]
+ans = []
+
+# n, m 값이 8을 초과하는 경우를 생각해서 반복문 작성
+for i in range(n-7):
+    for j in range(m-7):
+        cnt1 = 0 # W로 색칠해야 하는 횟수
+        cnt2 = 0 # B로 색칠해야 하는 횟수
+
+        for k in range(i, i+8):
+            for l in range(j, j+8):
+                if (k+l) % 2 == 0: # 좌표의 합이 짝수인 경우
+                    if board[k][l] == 'B': # B로 시작하면
+                        cnt1 += 1 # W로 색칠해야 하는 카운트 +1을 해준다.
+                    else: # W로 시작하면
+                        cnt2 += 1 # B로 색칠해야 하는 카운트 +1을 해준다
+                else: 
+                    if board[k][l] == 'W':
+                        cnt1 += 1
+                    else:
+                        cnt2 += 1
+
+        ans.append(cnt1)
+        ans.append(cnt2)
+
+print(min(ans))
