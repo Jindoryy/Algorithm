@@ -1,0 +1,27 @@
+"""
+heapq.heappush(heap, x): heap에 원소 x 추가 - O(logN)
+heapq.heappop(heap): heap에서 원소 삭제 - O(logN)
+heapq.heapify(list): 기존 리스트를 heap으로 변환 - O(N)
+
+이 문제의 시간복잡도 = n개를 입력받아 heappush or heappop = O(N logN)
+"""
+
+from sys import stdin
+from heapq import heappush, heappop
+
+input = stdin.readline
+
+n = int(input())
+hq = []
+
+for _ in range(n):
+    num = int(input())
+
+    if num == 0:
+        try:
+            print(heappop(hq))
+        except:
+            print(0)
+
+    if num > 0:
+        heappush(hq, num)
