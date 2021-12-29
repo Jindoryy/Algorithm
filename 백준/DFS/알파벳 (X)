@@ -1,0 +1,37 @@
+"""
+반복문을 돌려서 4방향으로 갈때 범위 안이고 알파벳이 중복되지 않는다면 set()에 (mx, my)에 있는 알파벳을 넣어주고,
+재귀로 count를 +1해주고 다시 DFS를 돌린다. 그리고 다시 set()에서 없애는 방법이 중요하다.
+혹여나 최대 칸 수가 아닌 경우 돌아가기 위해서이다. 이 과정에서 백트래킹 과정이다.
+아무튼 count를 최댓값으로 갱신해서 마지막에 출력하면 된다.
+
+알파벳이 중복되는지 알기 위해 set()을 썼다. in을 써도 O(1)이라서 시간 단축에 도움이 된다.
+"""
+
+from sys import stdin
+input = stdin.readline
+
+n, m = map(int, input().split())
+map = [ list(input().strip()) for _ in range(n) ]
+ans = 0
+stack = set()
+
+dx, dy = [0, 1, -1, 0], [-1, 0, 0, 1]
+
+def dfs(x, y, cnt):
+    global ans
+    
+    ans = max(ans, cnt)
+
+    for k in range(4):
+        mx = x + dx[k]
+        my = y + dy[k]
+
+        if 0 <= mx < n and 0 <= my < m:
+            if map[mx][my] not in stack:
+                stack.add(map[mx][my])
+                dfs(mx, my, cnt+1)
+                stack.remove(map[mx][my])
+
+stack.add(map[0][0])
+dfs(0, 0, 1)
+print(ans)
