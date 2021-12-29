@@ -1,0 +1,38 @@
+"""
+이 문제를 풀기 위해 단순히 BFS, DFS를 사용하면 각 경로를 탐색하기 위해 중복으로 탐색할 가능성이 크다.
+따라서, 재귀 호출을 통해서 방문 가능한 경로의 수를 반환하고, 한번 탐색한 경로는 더 이상 탐색하지 않도록 하는 방법을 사용하여야
+시간 초과를 발생시키지 않고 문제를 해결할 수 있다.
+
+참고 블로그 : https://dirmathfl.tistory.com/204
+"""
+
+from sys import stdin
+input = stdin.readline
+
+n, m = map(int, input().split())
+map = [ list(map(int, input().split())) for _ in range(n) ]
+dp = [ [-1] * m for _ in range(n) ]
+
+dx, dy = [0, 0, -1, 1], [-1, 1, 0, 0]
+
+def dfs(x, y):
+
+    # 목적지에 도착하면 1을 리턴 해준다.
+    if x == n-1 and y == m-1:
+        return 1
+    # 아직 지나가지 않은 곳이라면 0을 대입하고 dfs를 수행한다.
+    if dp[x][y] == -1:
+        dp[x][y] = 0
+
+        for k in range(4):
+            mx = x + dx[k]
+            my = y + dy[k]
+            if 0 <= mx < n and 0 <= my < m:
+                if map[mx][my] < map[x][y]:
+                    dp[x][y] += dfs(mx, my)
+    # 이미 지나간 곳이라면 그 자리의 dp값을 반환해준다.
+    return dp[x][y]
+
+print(dfs(0, 0))
+for i in dp:
+    print(i)
