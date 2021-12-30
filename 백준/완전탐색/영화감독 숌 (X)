@@ -1,0 +1,20 @@
+"""
+이거 너무 어려운데?.. 이런 아이디어 어떻게 생각하는거지;;
+"""
+
+from sys import stdin
+
+n = int(input())
+
+num = 666
+cnt = 0
+
+while True:
+    if '666' in str(num): # n번째 수에 '666'이 포함되어 있다면
+        cnt += 1
+
+    if n == cnt: # n번째 수와 cnt가 같다면 정답
+        print(num)
+        break
+
+    num += 1 # 666부터 계속 1씩 더해준다.
