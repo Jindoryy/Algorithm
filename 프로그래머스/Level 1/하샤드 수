@@ -1,0 +1,9 @@
+def solution(x):
+    
+    nums = str(x)
+    tmp = 0
+    
+    for num in nums:
+        tmp += int(num)
+        
+    return x % tmp == 0
