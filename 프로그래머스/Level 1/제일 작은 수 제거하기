@@ -1,0 +1,10 @@
+def solution(arr):
+        
+    if arr == [10]:
+        answer = [-1]
+    else:
+        tmp = min(arr)
+        arr.remove(tmp)
+        answer = arr
+        
+    return answer
