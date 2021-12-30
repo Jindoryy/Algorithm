@@ -1,0 +1,67 @@
+"""
+1. 일단 섬을 구분하기 위해 bfs를 돌리면서 섬들을 구분시킨다. ( 0: 다리를 놓을 바다 / 1: 옛날섬 / 2~4: 새로운섬(서로 구분하기위해))
+2. 구분된 섬들 사이에 최단거리를 어떻게 구할 것인가? 다시 한번 bfs? -> 거리를 잴 수 있는 2차원배열(dis[][])을 bfs반복문 내에 생성한다.
+
+아쉬운 문제, 아이디어는 맞췃는데 두번째 BFS 구현부분에서 막혔다.
+"""
+
+from sys import stdin
+from collections import deque
+input = stdin.readline
+
+n = int(input())
+map = [ list(map(int, input().split())) for _ in range(n) ]
+island = 2 # 섬들을 서로 구분하기 위해 생성한 변수
+ans = n*n # n의 범위가 100이므로 n*n을 넘어가는 다리는 만들 수 없다. (최소 다리 개수 구하기 위해 최댓값으로 초기화)
+
+dx, dy = [0, 0, -1, 1], [-1, 1, 0, 0]
+
+def bfs(x, y): # 섬들을 2, 3, 4번의 번호로 구분하기 위한 bfs
+    global island
+    map[x][y] = island
+    q = deque([(x, y)])
+
+    while q:
+        px, py = q.popleft()
+        for k in range(4):
+            mx = px + dx[k]
+            my = py + dy[k]
+            if 0 <= mx < n and 0 <= my < n:
+                if map[mx][my] == 1:
+                    map[mx][my] = island
+                    q.append((mx, my))
+
+for i in range(n):
+    for j in range(n):
+        if map[i][j] == 1:
+            bfs(i, j)
+            island += 1
+
+def bfs2(island): # 최소한의 다리 길이를 구하는 bfs
+    global ans
+    dis = [ [-1] * n for _ in range(n) ] # 거리를 측정하기 위해 2차원배열을 따로 생성한다.
+    q = deque()
+
+    for i in range(n): # 섬을 차례로 큐에 집어 넣고 해당 섬이 있는 위치는 0으로 초기화 해준다.
+        for j in range(n):
+            if map[i][j] == island:
+                q.append((i, j))
+                dis[i][j] = 0
+
+    while q:
+        px, py = q.popleft()
+        for k in range(4):
+            mx = px + dx[k]
+            my = py + dy[k]
+            if 0 <= mx < n and 0 <= my < n:
+                if map[mx][my] == 0 and dis[mx][my] == -1: # 바다를 만났을 때 and 새로운 길일 때(미개척지)
+                    dis[mx][my] = dis[px][py] + 1 # 거리를 +1씩 더해준다.
+                    q.append((mx, my))
+                elif map[mx][my] > 0 and map[mx][my] != island: # 다른 섬을 만난 경우 and 현재 돌고 있는 섬이 아닌 경우
+                    ans = min(ans, dis[px][py]) # 다른 섬을 만난 경우 현재 다리를 놓은 개수를 최소값으로 갱신한다.
+                    return
+
+for i in range(2, island): # 본 문제의 테스트 케이스에서는 3개의 섬이 bfs 호출한다.
+    bfs2(i)
+
+print(ans)
