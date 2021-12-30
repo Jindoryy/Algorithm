@@ -1,0 +1,33 @@
+"""
+백트래킹 : 상태공간 트리를 깊이우선으로 탐색
+
+기본가정 : 같은 행에는 퀸을 놓지 않는다.
+유망함 조건 : 같은 열과 대각선에는 퀸을 놓지 않는다.
+"""
+
+from sys import stdin
+input = stdin.readline
+
+n = int(input())
+board = [0] * n
+res = 0
+
+def check(x):
+    for i in range(x):
+        if board[x] == board[i] or abs(board[x] - board[i]) == (x - i): # 같은 열에 있는지 체크 or 대각선에 있는지 체크
+            return False
+    return True
+
+def dfs(x):
+    global res
+
+    if n == x:
+        res += 1
+    else:
+        for i in range(n):
+            board[x] = i
+            if check(x):
+                dfs(x+1)
+
+dfs(0)
+print(res)
