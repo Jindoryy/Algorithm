@@ -1,0 +1,8 @@
+def solution(phone_number):
+    
+    tmp = phone_number[:-4] # 마지막 번호를 제외한 부분 슬라이싱
+    num = len(tmp) # "*"로 바꿀 문자열의 개수
+    
+    answer = phone_number.replace(tmp, "*"*num)
+    
+    return answer
