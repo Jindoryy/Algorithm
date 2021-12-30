@@ -1,9 +1,0 @@
-def TWO(x):
-    if x > 0:
-        tmp = x % 2
-        TWO(x//2)
-        print(tmp, end='')
-
-if __name__=="__main__":
-    n = int(input())
-    TWO(n)
