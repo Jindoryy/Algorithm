@@ -1,0 +1,47 @@
+"""
+문제좀.. 제대로 읽자 소문자로 바꾸는걸 왜 못읽지..
+
+★ split()와 split(" ")는 다르다 구분하자!
+  엉뚱한 곳에서 시간 낭비 했는데 바로 s.split(" ") 한 부분이다.
+  처음에는 매개변수 없이 s.split() 으로 해서 100점이 안나왔는데, 그 이유는 s에 공백을 포함한 문자가 들어오면 마지막에 그 공백도 출력해줘야 한다.
+  s.split()으로 하면 모든 공백을 없애버리기 때문에 100점이 안나왔던 것.
+"""
+
+def solution(s):
+    
+    ans = ""
+    s = list(s) # 이거 없어도됨
+    idx = 0
+    
+    for i in s:
+        if i == ' ':
+            ans += ' '
+            idx = 0
+        else:
+            if idx % 2 == 0:
+                ans += i.upper()
+            else:
+                ans += i.lower()
+            idx += 1
+            
+    return ans
+    
+    ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    
+    def solution(s):
+    
+    ans = ""
+    tmp = s.split(" ")
+    cnt = len(tmp) - 1
+    
+    for i in tmp:
+        for j in range(len(i)):
+            if j % 2 == 0:
+                ans += i[j].upper()
+            else:
+                ans += i[j].lower()
+                
+        if cnt > 0:
+            ans += " "
+            cnt -= 1
+    return ans
