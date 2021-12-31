@@ -1,0 +1,31 @@
+"""
+아니 이분탐색 으로 신경써서 풀었는데 더 간단한 방법이 있네.. n % 1 == 0 이게 정수인지 판별하구나
+"""
+
+def solution(n):
+    
+    answer = -1
+    left, right = 1, n
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        num = mid ** 2
+        
+        if num == n:
+            answer = (mid+1) ** 2
+            break
+        elif num > n:
+            right = mid - 1
+        else:
+            left = mid + 1
+    
+    return answer
+    
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+def solution(n):
+    
+    sqrt = n ** (1/2) # import math 안해도 제곱근을 구할 수 있다
+    
+    return (sqrt+1) **2 if sqrt % 1 == 0 else -1 # sqrt % 1 == 0 즉, 제곱근이 정수이면 참이고 정수가 아니면 -1을 출력하도록 하는 것이다.
