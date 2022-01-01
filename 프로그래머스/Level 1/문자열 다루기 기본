@@ -1,0 +1,23 @@
+def solution(s):
+    
+    isNumber = True
+    length = len(s)
+    
+    if length == 4 or length == 6:
+        for i in s:
+            if i.isalpha():
+                isNumber = False
+                break
+    else:
+        isNumber = False
+
+    return isNumber
+    
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+"""
+와...
+"""
+
+def solution(s):
+
+    return s.isdigit() and len(s) in (4, 6)
