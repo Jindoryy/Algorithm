@@ -1,0 +1,15 @@
+def solution(s):
+    
+    s = list(s)
+    s.sort(reverse=True)
+    
+    return ''.join(s)
+    
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+"""
+sorted는 리스트를 반환하기 때문에 가능한 코드이다
+"""
+
+def solution(s):
+    
+    return ''.join(sorted(s, reverse=True))
