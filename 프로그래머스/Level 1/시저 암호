@@ -1,0 +1,22 @@
+"""
+아스키 코드 참조해야함
+"""
+
+def solution(s, n):
+    
+    ans = []
+    for i in s:
+        i = ord(i)
+        if 65 <= i <= 90:
+            i += n
+            if 90 < i:
+                i -= 26
+        
+        elif 97 <= i <= 122:
+            i += n
+            if 122 < i:
+                i -= 26
+                
+        ans.append(chr(i))
+        
+    return ''.join(ans)
