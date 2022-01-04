@@ -18,4 +18,4 @@
 
 # 시간복잡도
 - 파이썬은 1초에 2천만번 연산을 함.
-<img width="80%" src="![Time Complexity](https://user-images.githubusercontent.com/87755660/148132016-ac02ece1-4d2e-4ac6-912d-54748b89200d.JPG)"/>
+<img width="80%" src="https://user-images.githubusercontent.com/87755660/148132016-ac02ece1-4d2e-4ac6-912d-54748b89200d.JPG"/>
