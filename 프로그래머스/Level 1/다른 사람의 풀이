@@ -1,0 +1,60 @@
+"""
+코드를 가독성 해치게 더럽게 풀었다. 두번쨰 코드 보면서 다듬어야 할듯
+"""
+
+def solution(answers):
+    
+    answer = []
+    
+    one = [1, 2, 3, 4, 5]
+    two = [2, 1, 2, 3, 2, 4, 2, 5]
+    three = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
+    p1, p2, p3 = 0, 0, 0
+    correct = [0, 0, 0]
+    
+    for ans in answers:
+        if one[p1] == ans:
+            correct[0] += 1
+        if two[p2] == ans:
+            correct[1] += 1
+        if three[p3] == ans:
+            correct[2] += 1
+        
+        p1, p2, p3 = p1+1, p2+1, p3+1
+        
+        if p1 % 5 == 0:
+            p1 = 0
+        if p2 % 8 == 0:
+            p2 = 0
+        if p3 % 10 == 0:
+            p3 = 0
+    
+    max_score = max(correct)
+    for idx, value in enumerate(correct):
+        if max_score == value:
+            answer.append(idx+1)
+        
+    return answer
+    
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+def solution(answers):
+    pattern1 = [1,2,3,4,5]
+    pattern2 = [2,1,2,3,2,4,2,5]
+    pattern3 = [3,3,1,1,2,2,4,4,5,5]
+    score = [0, 0, 0]
+    result = []
+
+    for idx, answer in enumerate(answers):
+        if answer == pattern1[idx%len(pattern1)]:
+            score[0] += 1
+        if answer == pattern2[idx%len(pattern2)]:
+            score[1] += 1
+        if answer == pattern3[idx%len(pattern3)]:
+            score[2] += 1
+
+    for idx, s in enumerate(score):
+        if s == max(score):
+            result.append(idx+1)
+
+    return result
