@@ -1,0 +1,43 @@
+def solution(numbers, hand):
+    answer = ''
+    
+    # 최근 왼손과 오른손위 위치
+    left, right = 10, 11 # 이렇게 초기화 한 이유는 처음 키패드 숫자로 (1, 4, 7) (3, 6, 9)가 아닌 값이 들어올때 처음 좌표를 기록해놔야 하기 떄문이다.
+    
+    # 0 ~ 9번을 눌렀을 때 각 숫자에 해당하는 배열의 좌표 기록 / + 처음 왼손, 오른손의 좌표 기록
+    dis = [ (3, 1), (0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1), (2, 2), (3, 0), (3, 2) ]
+    
+    for num in numbers:
+        if num in (1, 4, 7): # (1, 4, 7)은 무조건 왼손으로, 최근 왼손위치에 값도 기록한다. 
+            answer += 'L'
+            left = num
+        
+        elif num in (3, 6, 9): # (3, 6, 9)은 무조건 오른손으로, 최근 오른손위치에 값도 기록한다.
+            answer += 'R'
+            right = num
+            
+        else:
+            # 눌러야 하는 숫자와 현재 왼손과 오른손까지의 거리를 계산한다.
+            left_dis = abs(dis[left][0]-dis[num][0]) + abs(dis[left][1]-dis[num][1])
+            right_dis = abs(dis[right][0]-dis[num][0]) + abs(dis[right][1]-dis[num][1])
+            
+            # 거리가 같다면 인자로 넘겨받은 hand를 이용해서 결정한다.
+            if left_dis == right_dis:
+                if hand == "left":
+                    answer += 'L'
+                    left = num
+                else:
+                    answer += 'R'
+                    right = num
+            
+            # 눌러야 하는 숫자와의 거리가 왼손이 더 가깝다면 왼손으로 터치한다.
+            elif left_dis < right_dis:
+                answer += 'L'
+                left = num
+            
+            # 눌러야 하는 숫자와의 거리가 오른손이 더 가깝다면 오른손으로 터치한다.
+            else:
+                answer += 'R'
+                right = num
+                
+    return answer
