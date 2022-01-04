@@ -1,0 +1,54 @@
+"""
+다른사람의 풀이를 보면 간단하게 푼데 반해 나는 어렵게 푼거 같다. 간략하게 작성할 수 있는 법을 길러야 한다.
+"""
+
+def solution(board, moves):
+    answer = 0
+    n = len(board)
+    basket = []
+    
+    # board[j][i-1] 에 대한 수식은 직접 그림을 그려보면 이해된다.
+    for i in moves: # 순서대로 뽑기를 진행한다.
+        for j in range(n):
+            if board[j][i-1] > 0: # 0 이상인 경우는 인형이 있다는 것을 의미한다.
+                basket.append(board[j][i-1]) # 바구니에 담는다
+                board[j][i-1] = 0 # 인형을 뽑았으면 뽑은 자리는 비었다고 표시해준다..
+                break
+    
+    recent_num = [ basket[0] ] # 이전의 값을 기록하기 위해 변수 리스트를 생성했다. 리스트로 작성한 이유는 인형이 만약 터지게 되면 그 이전의 값들도 참조해야 하기 때문에 리스트로 작성했다. 
+    for i in range(1, len(basket)):
+        if not recent_num: # 만약 참조할 이전의 값이 없다면 현재의 값을 넣고 다음 반복문으로 넘어간다.
+            recent_num.append(basket[i])
+            continue
+            
+        if recent_num[-1] == basket[i]: # 만약 인형 2개가 겹치는 경우
+            recent_num.pop() # 참조하고 있는 인형의 숫자를 제거한다.
+            answer += 2 # 인형을 터뜨린다.
+        else:
+            recent_num.append(basket[i]) # 인형 2개가 겹치치 않는다면 현재의 인형에 해당하는 숫자를 넣는다.
+    
+    return answer
+    
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+def solution(board, moves):
+    
+    answer = 0
+    stack = []
+    
+    for i in moves:
+        for j in range(len(board)):
+            if board[j][i-1] > 0:
+                stack.append(board[j][i-1])
+                board[j][i-1] = 0
+                
+                # 바로 스택을 처리하는 방법으로 진행했는데 이부분 중요!
+                if len(stack) > 1:
+                    if stack[-1] == stack[-2]:
+                        stack.pop()
+                        stack.pop()
+                        answer += 2
+                
+                break
+    
+    return answer
