@@ -1,0 +1,44 @@
+"""
+반복문을 돌면서 로또 번호가 당첨 번호에 몇개 일치 하는지 그리고 0의 개수를 확인한다.
+-> 0의 개수가 0개이면 등수를 그대로 매기고, 1개 이상이면 0의 개수만큼 최고 순위를 한칸씩 올린다.
+"""
+
+def solution(lottos, win_nums):
+    
+    answer = []
+    win_num_cnt = 0 # 당첨된 번호의 개수
+    zero_cnt = 0 # 당첨 보류해야할 번호의 개수
+    
+    # 당첨된 번호의 개수 : 등수
+    rank = { 0:6, 1:6, 2:5, 3:4, 4:3, 5:2, 6:1 }
+    
+    # 반복문을 돌면서 당첨된 번호의 개수와 보류할 번호(0)의 개수를 찾는다.
+    for num in lottos:
+        if num in win_nums:
+            win_num_cnt += 1
+        if num == 0:
+            zero_cnt += 1
+    
+    high_rank = win_num_cnt + zero_cnt # 보류할 번호(0)는 당첨이라고 가정하고 최고순위 기록
+    low_rank = win_num_cnt # 보류할 번호(0)은 미당첨이라고 가정하고 최저순위 기록
+    
+    # 키 값을 이용하여 정답 리스트에 순위를 입력한다.
+    answer.append(rank.get(high_rank))
+    answer.append(rank.get(low_rank))         
+                
+    return answer
+    
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+def solution(lottos, win_nums):
+    
+    zero_cnt = lottos.count(0)
+    ans = 0
+    
+    rank = [6, 6, 5, 4, 3, 2, 1]
+    
+    for x in win_nums:
+        if x in lottos:
+            ans += 1
+            
+    return rank[zero_cnt + ans], rank[ans]
