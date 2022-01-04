@@ -1,0 +1,38 @@
+"""
+해결책 1 : sort()를 활용한 풀이
+★★★ 해결책 2 : hash를 활용한 풀이 ★★★
+"""
+
+def solution(participant, completion):
+    
+    answer = ''
+    participant.sort()
+    completion.sort()
+    
+    # completeion list의 len만큼 participant를 찾아서 없는 사람을 찾는다
+    for i in range(len(completion)):
+        if (participant[i] != completion[i]):
+            return participant[i]
+    
+    # 3. 전부 다 돌아도 없을 경우에는 마지막 주자가 완주하지 못한 선수이다.
+    return participant[-1]
+    
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+def solution(participant, completion):
+    
+    hashdict = {}
+    sumhash = 0
+    
+    # 1. Hash : Participant의 dictionary 만들기 
+    # 2. Participant의 sum(hash) 구하기
+    for person in participant:
+        hashdict[hash(person)] = person
+        sumhash += hash(person)
+    
+    # 3. completion의 sum(hash) 빼기
+    for human in completion:
+        sumhash -= hash(human)
+    
+    # 4. 남은 값이 완주하지 못한 선수의 hash 값이 된다
+    return hashdict[sumhash]
