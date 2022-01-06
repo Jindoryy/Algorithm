@@ -1,0 +1,30 @@
+# 처음 풀이 (시간초과)
+
+from itertools import permutations
+
+def solution(numbers):
+    
+    numbers = list(map(str, numbers))
+    numbers = list(map(''.join, permutations(numbers))) # permutations(배열, 인자값) : 인자값 생략시 전체 경우에 대하여 탐색
+    
+    return str(max(list(map(int, numbers))))
+    
+# 정답 풀이
+
+def solution(numbers):
+    
+    numbers = list(map(str, numbers))
+    numbers.sort(key=lambda x : x*3, reverse=True)
+    
+    # int 해주는 이유 : '0000'일때 '0'이 나오도록 해야함.
+    return str(int(''.join(numbers)))
+    
+1. str로 형 변환 후, 사전 값으로 배열을 정렬.
+2. str로 변경한 숫자에 3을 곱한 값으로 재정렬.
+3. 반환 해줄 때, int로 변환을 해준 후 다시 str로 변경.
+
+ 3을 곱하는 이유는 2번째 예시를 풀 때 이유를 알게 된다.
+ 계산할 때 사전값으로만 정렬을 한다면 [9,5,34,30,3] 이렇게 정렬된다.
+ 하지만 3이 30보다 앞에 와야한다.
+ number는 1000이하의 숫자이므로 최대값을 생각해 3을 곱해줬고,
+ 3을 곱하게 되면 [999, 555, 343434, 303030, 333] 이렇게 될 것이고, 정렬을 하게 되면 [999, 555, 343434, 333, 303030]이 된다.
