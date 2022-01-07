@@ -1,0 +1,21 @@
+def solution(N, stages):
+    
+    fail = {}
+    people = len(stages) # 도전한 사람의 수
+    
+    # 총 문제 수 - n번째 머무른 사람의 수 = n+1번째 도전한 사람의 수
+    for stage in range(1, N+1):
+        
+        if people > 0:
+            cnt = stages.count(stage)
+            fail[stage] = cnt / people
+            people -= cnt
+        else:
+            # 스테이지에 도달한 유저가 없는 경우 해당 스테이지의 실패율은 0 으로 정의한다.
+            fail[stage] = 0 
+    
+    # 딕셔너리에서 value값을 기준으로 내림차순 정렬 후 키 값을 반환한다.
+    return sorted(fail, key=lambda x : fail[x], reverse=True)
+ 
+ 
+ 참고 : https://hello-bryan.tistory.com/78
