@@ -1,0 +1,15 @@
+# 첫번째 방법
+
+def solution(strings, n):
+    
+    strings.sort(key = lambda x : (x[n], x[0:]))
+    
+    return strings
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+# 두번째 방법 (정렬 후 n을 기준으로 정렬해준다)
+
+def solution(strings, n):
+    
+    return sorted(sorted(strings), key = lambda x : x[n])
