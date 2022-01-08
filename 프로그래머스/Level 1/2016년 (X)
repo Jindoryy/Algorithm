@@ -1,0 +1,12 @@
+def solution(a, b):
+    
+    day = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31] # 한달의 일수
+    yoil = ["THU","FRI","SAT","SUN","MON","TUE","WED"] # 요일
+    all_day = 0 # 입력받은 a, b의 총 일수
+    
+    for i in range(a):
+        all_day += day[i]
+    
+    all_day += b
+    
+    return yoil[all_day % 7]
