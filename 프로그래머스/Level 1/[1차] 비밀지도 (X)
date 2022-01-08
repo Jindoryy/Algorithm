@@ -1,0 +1,36 @@
+def solution(n, arr1, arr2):
+    
+    tmp = []
+    answer = []
+    
+    for idx in range(n):
+        tmp.append(arr1[idx] | arr2[idx])
+    
+    
+    for i in range(n):
+        tmp2 = bin(tmp[i])[2:].zfill(n) # 0을 왼쪽에 채워주는 역할
+        res = ''
+        
+        for x in tmp2:
+            if x == '1':
+                res += '#'
+            elif x == '0':
+                res += ' '
+            
+        answer.append(res)
+
+    return answer
+    
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+def solution(n, arr1, arr2):
+    
+    answer = []
+    
+    for idx in range(n):
+        tmp = bin(arr1[idx] | arr2[idx])[2:].zfill(n)
+        tmp = tmp.replace('0', ' ')
+        tmp = tmp.replace('1', '#')
+        answer.append(tmp)
+
+    return answer
