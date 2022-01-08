@@ -1,0 +1,25 @@
+# 문자열 처리 문제
+
+def solution(dartResult):
+    
+    answer = []
+    dartResult = dartResult.replace('10', 'P') # 10은 따로 치환해서 해결(한자리 수로 바꿔줘야함, 'Ten' 이런거 불가. 반복문에서 하나의 단어로 문자열 처리가 안됨)
+    bonus = { 'S':1, 'D':2, 'T':3 }
+    
+    for x in dartResult:
+        if x in bonus: # 보너스에 해당하는 값이면
+            answer[-1] = answer[-1] ** bonus[x]
+        
+        elif x == '*':
+            answer[-1] *= 2
+            if len(answer) > 1: # 만약 첫번째 원소가 아니라면
+                answer[-2] *= 2
+        elif x == '#':
+            answer[-1] *= (-1)
+        elif x == 'P':
+            answer.append(10)
+        
+        else:
+            answer.append(int(x))
+            
+    return sum(answer)
