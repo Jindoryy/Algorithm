@@ -1,0 +1,19 @@
+def solution(nums):
+    
+    n = len(nums) # 입력받은 nums의 개수
+    nums_list = []
+    
+    for i in range(n-2):
+        for j in range(i+1, n-1):
+            for k in range(j+1, n):
+                nums_list.append(nums[i] + nums[j] + nums[k])
+                
+    cnt = 0 # 3개의 숫자를 더해 만들 수 있는 소수의 개수를 카운트
+    for i in nums_list:
+        for j in range(2, i):
+            if i % j == 0:
+                break
+        else:
+            cnt += 1
+    
+    return cnt
