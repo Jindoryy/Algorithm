@@ -1,0 +1,15 @@
+def solution(nums):
+    
+    # 가져갈 수 있는 폰켓몬의 개수
+    Take_toy = len(nums) / 2
+    
+    # 중복을 제거한 폰켓몬의 개수
+    Left_toy = len(list(set(nums)))
+    
+    # 가져갈 수 있는 폰켓몬 개수가 남아있는 개수보다 적은 경우 가져갈 수 있는 범위의 최댓값만 가져간다.
+    if Take_toy < Left_toy:
+        return Take_toy
+    # 가져갈 수 있는 개수가 남아있는 폰켓몬의 개수보다 더 많다면 남아있는 개수 중에서 최댓값을 가져간다.
+    else:
+        return Left_toy
+    
