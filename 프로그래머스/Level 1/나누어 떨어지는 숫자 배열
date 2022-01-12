@@ -8,7 +8,7 @@ def solution(arr, divisor):
             
     if not answer: # 빈 리스트이면
         answer.append(-1)
-    else: # 빈 리스트가 아니면 정렬
+    else: # 빈 리스트가 아니면 정렬 
         answer.sort()
         
     return answer
