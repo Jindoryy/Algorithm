@@ -1,0 +1,39 @@
+"""
+1. 아이디어
+최소 공배수 구하는 문제인데 식을 몰라서 비효율 적이게 풀 수 있을거 같다.
+
+2. 시간복잡도
+O(N^2)
+"""
+
+def solution(arr):
+    
+    for i in range(1, 100000000+1):
+        for j in arr:
+            if i % j == 0: # 만약 i의 약수이면 계속 반복문을 돌고
+                continue
+            else: # i의 약수가 아니면 break
+                break
+        else: # 이 코드는 i의 약수가 아니고 정상적으로 반복문이 종료되면 수행된다.
+            return i
+            
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+def gcd(a, b): # 유클리드 호제법
+    
+    while b > 0:
+        a, b = b, a % b
+        
+    return a
+ 
+def lcm(a, b): # 최소 공배수
+    return a * b / gcd(a,b)
+ 
+ 
+def solution(arr):
+    answer = 1
+    
+    for num in arr:
+        answer = lcm(num, answer)
+    
+    return answer
