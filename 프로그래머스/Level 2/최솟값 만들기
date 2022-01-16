@@ -1,0 +1,12 @@
+def solution(A,B):
+    
+    # A의 가장 작은 수는 B의 가장 큰수와 곱하는 식으로 하면 누적합은 최소가 되기 마련이다.
+    
+    A.sort()
+    B.sort(reverse=True)
+    sum = 0
+    
+    for i in range(len(A)):
+        sum += A[i] * B[i]
+        
+    return sum
