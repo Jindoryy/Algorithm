@@ -1,0 +1,16 @@
+from sys import stdin
+input = stdin.readline
+
+n = int(input())
+high = list(map(int, input().split()))
+answer = [0] * n
+stack = []
+
+for i in range(len(high)-1, 0 -1, -1):
+
+    while stack and high[stack[-1]] < high[i]:
+        answer[stack.pop()] = i+1
+
+    stack.append(i)
+
+print(*answer)
