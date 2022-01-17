@@ -14,4 +14,4 @@ def solution(n):
             elif sum > n:
                 break
         
-    return cnt + 1 
+    return cnt + 1 # i가 n인경우는 반복문 내에서 세어지지 않으니깐 마지막에 그냥 +1을 해준다
