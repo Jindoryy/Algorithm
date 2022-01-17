@@ -1,0 +1,39 @@
+from sys import stdin
+input = stdin.readline
+
+n = int(input())
+pillar1 = list(map(int, input().split())) # 1번 기둥
+pillar2 = [] # 2번 기둥
+record = [] # 원판이 움직인 기록
+pan = n # 움직이고자 하는 원판의 번호
+
+flag = True
+
+while pan > 0: # 판 다 옮기면 끝
+    if flag:
+        while len(pillar1) > 0:
+            if pillar1[-1] == pan: # 1번기둥 젤 위에 있는게 움직이고자 하는 원판이면 3번기둥으로 이동 (여기선 딱히 3번기둥 필요x)
+                pillar1.pop()
+                pan -= 1
+                record.append((1, 3)) # 3번기둥으로 이동한거 기록
+
+            else: # 1번기둥 젤 위에 있는게 움직이고자 하는 원판이 아니면
+                pillar2.append(pillar1.pop()) # 2번기둥으로 이동
+                record.append((1, 2))
+        flag = False # 1번 기둥에 있는거 다 꺼내면 2번 기둥에서 꺼낼 수 있게 스위치 바꿔줌 ( flag = False일때 else문 실행 )
+
+    else:
+        while len(pillar2) > 0:
+            if pillar2[-1] == pan: # 2번기둥 젤 위에 있는게 움직이고자 하는 원판이면 3번 기둥으로 이동 (여기서 딱히 3번기둥 필요x)
+                pillar2.pop()
+                pan -= 1
+                record.append((2, 3)) # 3번기둥으로 이동한거 기록
+
+            else: # 2번기둥 젤 위에 있는게 움직이고자 하는 원판이 아니면
+                pillar1.append(pillar2.pop()) # 1번기둥으로 이동
+                record.append((2, 1))
+        flag = True # 2번 기둥에 있는거 다 꺼내면 1번 기둥에서 꺼낼 수 있게 스위치 바꿔줌 ( flag = True일때 if문 실행 )
+
+print(len(record))
+for x in record:
+    print(*x)
