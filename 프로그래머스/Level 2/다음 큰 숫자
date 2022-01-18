@@ -1,0 +1,18 @@
+# n의 범위가 1,000,000이고 2^20 = 1,048,576 이니깐 반복문은 최대 1,000,000 까지 돌더라도 반복문 내에서 count하는거는 결국 20이내 일것이다.
+# 그래서 20 * n -> O(20n) = O(n)이라서 효율성 통과 되는것 같다.**
+
+def solution(n):
+    
+    n_one_cnt = bin(n).count('1')
+    answer = 0
+    
+    while 1:
+        n += 1
+        
+        n2_one_cnt = bin(n).count('1')
+        
+        if n_one_cnt == n2_one_cnt:
+            answer = n
+            break
+    
+    return answer
