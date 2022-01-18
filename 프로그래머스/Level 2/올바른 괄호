@@ -1,0 +1,23 @@
+# 그냥 스택문제의 전형적인 쉬운문제
+
+def solution(s):
+    
+    stack = []
+    
+    for i in s:
+        if not stack:
+            if i == '(':
+                stack.append(i)
+            else:
+                return False
+        
+        else:
+            if i == '(':
+                stack.append(i)
+            else:
+                if stack[-1] == '(':
+                    stack.pop()
+                else:
+                    return False
+
+    return True if not stack else False
