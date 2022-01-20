@@ -40,8 +40,5 @@ while q:
             elif fake_map[mx][my] == '0' and real_map[wall][mx][my] == 0: # 길이 뚫려있다면 거리를 계속 더해 나간다.
                 real_map[wall][mx][my] = real_map[wall][px][py] + 1
                 q.append((wall, mx, my))
-
-for i in real_map:
-    for j in i:
-        print(j)
+                
 print(ans)
