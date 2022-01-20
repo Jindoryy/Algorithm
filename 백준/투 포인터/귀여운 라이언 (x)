@@ -1,0 +1,28 @@
+from sys import stdin
+input = stdin.readline
+
+n, k = map(int, input().split())
+doll = list(map(int, input().split()))
+answer = 1000000
+
+lion_doll = []
+
+for idx, value in enumerate(doll):
+    if value == 1:
+        lion_doll.append(idx)
+
+
+if len(lion_doll) < k:
+    print(-1)
+    exit(0)
+
+lp, rp = 0, k-1
+
+while rp < len(lion_doll):
+
+    tmp = lion_doll[rp] - lion_doll[lp] + 1
+    answer = min(answer, tmp)
+
+    lp, rp = lp+1, rp+1
+
+print(answer)
