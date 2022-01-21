@@ -1,0 +1,33 @@
+"""
+처음에 반복문의 조건에 rp<n 이렇게 두었는데 78%쯤에서 틀렸습니다가 떴다. 계속 생각을 해보니
+nums의 마지막 값이 n값과 같다면 길이는 무조건 1일테고 그게 최소일텐데 반복문 조건에 저렇게 놓으면 sum>=s와 같은 비교 연산도 못해보고 반복문이 끝난다.
+그래서 반복문에는 조건없이 무한루프로 돌리게 하고 중간에 break문을 넣어서 작성해줘야한다. 이말이 이해 안가더라도 다시한번 풀어보고 생각해보면 기억남
+"""
+
+from sys import stdin
+input = stdin.readline
+
+n, s = map(int, input().split())
+nums = list(map(int, input().split()))
+
+answer = 100001
+lp, rp = 0, 1
+sum = nums[lp]
+
+while 1:
+    if sum >= s:
+        answer = min(answer, rp-lp)
+        sum -= nums[lp]
+        lp += 1
+
+    elif rp == n:
+        break
+
+    else:
+        sum += nums[rp]
+        rp += 1
+
+if answer == 100001:
+    print(0)
+else:
+    print(answer)
