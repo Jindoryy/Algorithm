@@ -1,0 +1,46 @@
+"""
+이거 쉽게 봤는데 좀 조건이 생겨나서 어지럽기도 하고
+입력 부분이 좀 까다로운데 이게 좋은 문제인지는 잘 모르겠다. 여튼
+
+flag를 2개 세워줘야 한다 1개는 프린트 할지 말지 이고 1개는 역순으로 할까 말까 이다.
+이때 역순이 중요한데 1번 역순은 역순이지만 2번 역순하는건 제자리다. 그래서 홀수번째만 역순해주면 되서 시간복잡도가 확 줄어든다.
+이거 생각 안해서 계속 역순을 했다가 시간초과가 났었다. 이게 핵심인거 같고 나머지는 그냥 쉬운편이였다.
+"""
+
+from collections import deque
+from sys import stdin
+input = stdin.readline
+
+T = int(input())
+
+for _ in range(T):
+
+    P = input()
+    n = int(input())
+    lst = deque(input().rstrip()[1:-1].split(','))
+    prt_flag = True
+    rev_flag = False
+
+    for i in P:
+        if i == 'R': # 홀수 번째만 역순하기 위해 flag를 계속 바꿔준다.
+            rev_flag = not rev_flag
+        elif i == 'D':
+            if not lst or lst[0] == '': 빼야 되면 빈 리스트 인지 확인한다.
+                print("error")
+                prt_flag = False
+                break
+            else: # 홀수 번째만 역순하기 때문에 빼는 위치도 그에 따라 바꿔줘야한다.
+                if rev_flag:
+                    lst.pop()
+                else:
+                    lst.popleft()
+
+    if prt_flag: # 위에서 error가 아닌 이상 여기서 출력을 해준다.
+        if rev_flag: # 홀수번째는 역순해주고 출력하고 짝수번째는 그냥 출력해준다.
+            lst.reverse()
+            print('[' + ','.join(lst) + ']')
+        else:
+            print('[' + ','.join(lst) + ']')
+
+
+
