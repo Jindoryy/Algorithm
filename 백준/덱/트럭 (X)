@@ -1,0 +1,33 @@
+from collections import deque
+from sys import stdin
+input = stdin.readline
+
+n, w, l = map(int, input().split())
+trucks = deque(list(map(int, input().split())))
+bridge = deque([0] * w) # 현재 다리 상태
+time = 0
+
+while trucks:
+
+    bridge.popleft()
+    truck = trucks[0] # 트럭의 첫번째 무게
+
+    if len(bridge) < w and sum(bridge) + truck <= l: # 중요한 부분
+        bridge.append(trucks.popleft())
+    else:
+        bridge.append(0)
+
+    time += 1
+
+time += w # 트럭 리스트에 트럭이 다 없어지면 반복문이 바로 끝나므로 마지막 트럭이 다 건널때까지 시간을 더해줘야 함.
+print(time)
+
+"""
+반복문 내 다리 상황
+deque([0, 7])
+deque([7, 0])
+deque([0, 4])
+deque([4, 5])
+deque([5, 0])
+deque([0, 6])
+"""
