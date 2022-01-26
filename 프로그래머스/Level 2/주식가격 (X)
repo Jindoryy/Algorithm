@@ -19,7 +19,7 @@ def solution(prices):
         
     return answer
 
-# 완전탐색으로 푼 경우
+# 다른사람이 완전탐색으로 푼 경우
 
 def solution(prices):
     
