@@ -1,0 +1,12 @@
+# 프로그래머스 가장 큰 수랑 비슷
+
+from sys import stdin
+input = stdin.readline
+
+n = int(input())
+nums = list(map(int, input().split()))
+
+nums = list(map(str, nums))
+nums.sort(key = lambda x : x*10, reverse=True)
+
+print(int(''.join(nums)))
