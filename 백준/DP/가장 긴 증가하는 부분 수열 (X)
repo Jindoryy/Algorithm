@@ -1,4 +1,5 @@
 # LIS(Longest Increasing Subsequence) 라는 유명한 DP 문제라고 한다..
+# dp 리스트에 자신을 포함하여 만들수 있는 부분 수열 크기를 저장해야한다.
 
 from sys import stdin
 input = stdin.readline
