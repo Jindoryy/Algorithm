@@ -1,0 +1,15 @@
+# LIS(Longest Increasing Subsequence) 라는 유명한 DP 문제라고 한다..
+
+from sys import stdin
+input = stdin.readline
+
+n = int(input())
+seq = list(map(int, input().split()))
+dp = [1] * n # 1로 초기화 한 이유는 숫자 자신이 1부터 시작하기 떄문이다.
+
+for i in range(n):
+    for j in range(i):
+        if seq[j] < seq[i]: # 만약 현재 숫자가 이전 숫자 보다 큰 지점을 만난다면
+            dp[i] = max(dp[i], dp[j]+1) # 현재 dp와 이전 숫자에 +1한 dp중 큰 것을 택한다.
+
+print(max(dp))
