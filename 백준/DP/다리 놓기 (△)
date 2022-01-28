@@ -1,0 +1,14 @@
+# 그냥 간단한 조합 문제인데 dp문제로 돼있어서 헷갈림
+# 팩토리얼 이용해서 조합 공식 그대로 적용하면 됨
+
+from math import factorial
+from sys import stdin
+input = stdin.readline
+
+T = int(input())
+
+for _ in range(T):
+    n, m = map(int, input().split())
+
+    answer = factorial(m) // (factorial(n) * factorial(m-n))
+    print(answer)
