@@ -1,0 +1,13 @@
+# 그냥 쉬운문제 항상 말하듯이 dp문제 풀기전에 무조건 식써보면 된다.
+# 식 써보면 그냥 피보나치 수열이랑 같다 ㅇㅇ..
+
+from sys import stdin
+input = stdin.readline
+
+n = int(input())
+dp = [1, 1]
+
+for i in range(2, n):
+    dp.append(dp[i-1] + dp[i-2])
+
+print(dp[n-1])
