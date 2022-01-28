@@ -1,0 +1,20 @@
+from sys import stdin
+input = stdin.readline
+
+n = int(input())
+wine = [0] * (n+2)
+dp = [0] * (n+2)
+
+for i in range(n):
+    wine[i] = int(input())
+
+dp[0] = wine[0]
+dp[1] = wine[0] + wine[1]
+# 와인을 마시지 않아도 되기 때문에 dp[1] 부분을 계단오르기 문제와는 다르게 추가해줘야 함.
+dp[2] = max(dp[1], wine[0] + wine[2], wine[1] + wine[2])
+
+for i in range(3, n):
+    # 와인을 마시지 않는 경우, 이전 와인을 안먹는 경우, 이전 와인을 먹는 경우
+    dp[i] = max(dp[i-1], dp[i-2] + wine[i], dp[i-3] + wine[i-1] + wine[i])
+
+print(max(dp))
