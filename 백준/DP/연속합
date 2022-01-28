@@ -1,0 +1,16 @@
+# 맞추긴 했는데 한 20분? 정도 고민했던거 같다.
+# 나중에 한번 더 풀어볼 가치 많음
+
+from sys import stdin
+input = stdin.readline
+
+n = int(input())
+nums = list(map(int, input().split()))
+dp = [0] * n
+
+for i in range(n):
+    dp[i] = nums[i] # 이거 해준이유는 예시 3번 때문에 -1이 답으로 나올려면 dp자체에 nums값이 있어야 한다.
+    for j in range(i-1, i): # i-1을 안해주면 시간초과남. 사실상 이전 값하고만 비교하면 되기 때문에 i-1만 해줘도 된다.
+        dp[i] = max(nums[i], dp[j]+nums[i])
+
+print(max(dp))
