@@ -1,0 +1,17 @@
+from sys import stdin
+input = stdin.readline
+
+n, k = map(int, input().split())
+coins = [ int(input()) for _ in range(n) ]
+
+dp = [0] * (k+1)
+dp[0] = 1
+# dp[i] = i원을 만들 때 가능한 경우의 수
+# dp[0] -> 동전 하나를 사용하는 경우 (ex. coin이 5일 때, dp[5-5] = 1로 맞춰줌으로써 0원에서 5원을 더해 5원을 만든다고 설정)
+
+for coin in coins:
+    for i in range(coin, k+1):
+    	# coin원으로 동전을 만드는 경우의 수 -> dp[i - coin]원
+        dp[i] += dp[i-coin]
+
+print(dp[k])
