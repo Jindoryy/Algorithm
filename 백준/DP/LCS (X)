@@ -1,0 +1,16 @@
+from sys import stdin
+input = stdin.readline
+
+a = input().rstrip()
+b = input().rstrip()
+
+lcs = [ [0] * (len(a)+1) for _ in range(len(b)+1) ]
+
+for i in range(1, len(b)+1):
+    for j in range(1, len(a)+1):
+        if b[i-1] == a[j-1]: # 가장 최근에 추가된 글자가 서로 같을 때
+            lcs[i][j] = lcs[i-1][j-1] + 1 # 두 글자가 추가되기 전 가장 큰 길이 + 1
+        else: # 가장 최근에 추가된 글자가 서로 다를 때
+            lcs[i][j] = max(lcs[i-1][j], lcs[i][j-1]) # 기존에 주어진 문자열로 만들 수 있던 최대 길이
+
+print(lcs[-1][-1])
