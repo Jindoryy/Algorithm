@@ -1,0 +1,14 @@
+from sys import stdin
+input = stdin.readline
+
+n, k = map(int, input().split())
+bags = [ list(map(int, input().split())) for _ in range(n) ]
+dp = [0] * (k+1)
+# dp[i] = 현재 무게제한이 i일때 최대 가치 누적
+
+for w, v in bags:
+    for i in range(k, w-1, -1):
+        # max(현재 배낭의 가치 + 현재 배낭의 무게를 뺸 시점의 최대가치, 현재 무게재한이 i일떄 최대 가치)
+        dp[i] = max( v + dp[i-w], dp[i] )
+
+print(dp[-1])
