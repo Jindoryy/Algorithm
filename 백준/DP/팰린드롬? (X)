@@ -1,0 +1,23 @@
+from sys import stdin
+input = stdin.readline
+
+n = int(input())
+nums = list(map(int, input().split()))
+m = int(input())
+dp = [ [0] * n for _ in range(n) ]
+
+for i in range(n): # e-s = 0 인 경우 (즉, s=e인 경우)
+    dp[i][i] = 1 # 글자가 1개인 부분 문자열은 무조건 팰린드롬이다.
+
+for i in range(n-1): # e-s = 1 인 경우
+    if nums[i] == nums[i+1]: # 글자가 2개인 부분 문자열은 2개의 글자가 같다면 팰린드롬이다.
+        dp[i][i+1] = 1
+
+for len in range(2, n): # e-s = 2 이상 인 경우 (이때 len은 e-s 만큼의 거리를 뜻함)
+    for i in range(n-len):
+        if nums[i] == nums[i + len] and dp[i+1][i + len -1] == 1: # 글자가 3개이상이면 시작 문자열과 끝 문자열이 같고 그 사이의 문자열이 팰린드롬이면 팰린드롬이다.
+            dp[i][i + len] = 1
+
+for _ in range(m):
+    s, e = map(int, input().split())
+    print(dp[s-1][e-1])
