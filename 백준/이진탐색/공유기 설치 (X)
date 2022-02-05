@@ -1,0 +1,36 @@
+"""
+1. 아이디어
+
+
+2. 시간복잡도
+O(Nlogx)이다.
+여기서 N은 집의 개수를 의미하고, x는 집의 좌표를 의미한다.
+logx는 이분탐색의 시간복잡도 이고 N을 곱해준 이유는 이분탐색 내의 반복문 때문이다.
+"""
+
+from sys import stdin
+input = stdin.readline
+
+n, c = map(int, input().split())
+houses = [ int(input()) for _ in range(n) ]
+houses.sort() # 이분탐색의 전제조건은 정렬되어 있어야 하는 것이다.
+left, right = 1, houses[n-1] - houses[0] # 집들 간의 최소거리, 최대거리
+answer = 0
+
+while left <= right:
+    mid = (left + right) // 2 # 여기서 mid는 집들간의 거리를 의미한다.
+
+    house = houses[0] # 시작지점
+    cnt = 1 # 공유기를 놓을 수 있는 개수를 의미
+    for i in range(1, n):
+        if houses[i] >= (house + mid): # 2~n번째 집 좌표 >= (집 좌표 + 거리)
+            cnt += 1 # 만약 반경 내에 집이 있다면 공유기를 설치해준다.
+            house = houses[i] # 다음 반복문을 위해 집의 좌표를 업데이트 해준다.
+
+    if cnt >= c: # 만약 공유기의 개수가 설치하려는 공유기 개수를 넘어가는 경우
+        left = mid + 1
+        answer = mid # 정답 변수에 집들간의 거리를 업데이트 해준다.
+    else:
+        right = mid - 1
+
+print(answer)
