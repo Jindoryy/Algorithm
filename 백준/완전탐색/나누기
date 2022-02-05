@@ -1,0 +1,17 @@
+from sys import stdin
+input = stdin.readline
+
+n = input().rstrip()
+f = int(input())
+
+n = n[:-2]
+n += '00'
+n = int(n)
+
+while 1:
+    if n % f == 0:
+        break
+
+    n += 1
+
+print(str(n)[-2:])
