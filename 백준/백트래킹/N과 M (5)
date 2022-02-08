@@ -1,0 +1,12 @@
+from itertools import permutations
+from sys import stdin
+input = stdin.readline
+
+n, m = map(int, input().split())
+nums = list(map(int, input().split()))
+nums.sort()
+
+p = list(permutations(nums, m))
+
+for num in p:
+    print(*num)
