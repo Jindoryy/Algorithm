@@ -1,0 +1,42 @@
+from sys import stdin
+input = stdin.readline
+
+def search_strlen(num): # 1부터 num까지의 길이를 구하는 함수.
+
+    length = len(str(num))
+    res = 0
+
+    for i in range(1, length):
+        res += i * (pow(10, i) - pow(10, i - 1))
+
+    res += length * (num - pow(10, length - 1) + 1)
+
+    return res # 1부터 num까지의 길이
+
+def bisect():
+    left, right = 1, n
+
+    if search_strlen(n) < k:
+        return -1
+
+    while left <= right:
+        mid = (left + right) // 2
+
+        one_mid = search_strlen(mid)
+        if one_mid < k:
+            left = mid + 1
+        else:
+            right = mid - 1
+            ans = mid
+
+    return ans
+
+n, k = map(int, input().split())
+ans = bisect()
+
+if ans == -1:
+    print(-1)
+else:
+    idx = search_strlen(ans) - k + 1
+    ans = str(ans)
+    print(int(ans[-idx]))
