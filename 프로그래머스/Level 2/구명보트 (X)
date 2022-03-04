@@ -1,0 +1,17 @@
+def solution(people, limit):
+    
+    people.sort(reverse=True)
+    answer = 0
+    
+    lp, rp = 0, len(people)-1
+    
+    while lp <= rp:
+        weight_sum = people[lp]
+        answer += 1
+        
+        if weight_sum + people[rp] <= limit:
+            rp -= 1
+        
+        lp += 1
+        
+    return answer
