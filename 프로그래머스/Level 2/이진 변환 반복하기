@@ -1,0 +1,18 @@
+def solution(s):
+
+    zero_cnt = 0
+    convert_cnt = 0
+
+    while s != '1':
+
+        before_s_len = len(s)
+        s = s.replace('0', '')
+        after_s_len = len(s)
+
+        zero_cnt += (before_s_len - after_s_len) # 0을 제거하기전 - 0을 제거한 후 = 0을 제거한 개수
+
+        s = bin(after_s_len)[2:] # 0을 제거한 후의 문자열의 길이를 2진수로 변환
+
+        convert_cnt += 1
+
+    return [convert_cnt, zero_cnt]
