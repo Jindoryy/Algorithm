@@ -1,0 +1,23 @@
+def solution(priorities, location):
+    
+    index_priorities = list(range(len(priorities)))
+    # 인덱스를 저장하는 리스트를 따로 만든다.
+    order = 0 # 인쇄되는 순서
+    
+    while priorities:
+        
+        paper = priorities.pop(0)
+        index_paper = index_priorities.pop(0)
+        
+        for x in priorities:
+        	# 만약 인쇄대기목록에 나보다 우선순위가 높은 것이 있다면 다시 맨뒤로 넣는다.
+            if paper < x: 
+                priorities.append(paper)
+                index_priorities.append(index_paper)
+                break
+        else: # 만약 인쇄대기목록에 나보다 우선순위가 높은 것이 없다면
+            order += 1 # 문서가 출력이 완료되었으므로 순서를 +1 해준다.
+            
+            # 만약 출력된 문서가 내가 찾던 문서이면 순서를 반환한다. (인덱스로 비교) 
+            if index_paper == location:
+                return order
