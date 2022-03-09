@@ -1,0 +1,24 @@
+def solution(progresses, speeds):
+
+    answer = []
+    time = 0
+    cnt = 0
+    
+    while progresses:
+        
+        if progresses[0] + (time * speeds[0]) >= 100:
+            progresses.pop(0)
+            speeds.pop(0)
+            cnt += 1 # 진도가 100%를 넘어서 서비스에 반영한 횟수
+        else: # 만약 진도를 100% 넘지 못하는 경우 
+            if cnt > 0: # 지금까지 서비스에 반영한 횟수를 더해준다.
+                answer.append(cnt)
+                cnt = 0
+                
+            time += 1 # 시간의 흐름
+    
+    """ 마지막에 else:부분을 실행하지 않고 반복문을 나오기 때문에 
+    추가적으로 서비스에 반영한 횟수를 더해준다. """
+    answer.append(cnt) 
+    
+    return answer
