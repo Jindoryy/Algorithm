@@ -1,0 +1,43 @@
+def stack(string):
+    stack = []
+
+    for element in string:
+
+        if not stack:
+            if element == '[' or element == '(' or element == '{':
+                stack.append(element)
+            else:
+                return False
+
+        else:
+            if element == '[' or element == '(' or element == '{':
+                stack.append(element)
+            elif stack[-1] == '[' and element == ']':
+                stack.pop()
+            elif stack[-1] == '(' and element == ')':
+                stack.pop()
+            elif stack[-1] == '{' and element == '}':
+                stack.pop()
+            else:
+                return False
+
+    if not stack:
+        return True
+    else:
+        return False
+
+
+def solution(s):
+    answer = 0
+    n = len(s)
+
+    for _ in range(n):
+
+        if stack(s):
+            answer += 1
+
+        tmp_str = s[0]
+        s = s[1:n]
+        s += tmp_str
+
+    return answer
