@@ -1,0 +1,26 @@
+def solution(n, left, right):
+    
+    answer = []
+    left, right = int(left), int(right)
+    
+    for i in range(left, right+1):
+        
+        answer.append(max(divmod(i, n)) + 1)
+        
+    return answer
+    
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+def solution(n, left, right):
+    
+    answer = []
+    left, right = int(left), int(right)
+    
+    for i in range(left, right+1):
+        
+        a = i // n
+        b = i % n
+        
+        answer.append(max(a+1, b+1))
+        
+    return answer
