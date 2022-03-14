@@ -1,0 +1,24 @@
+def solution(bridge_length, weight, truck_weights):
+    
+    time = 0
+    
+    now_bridge = [0] * bridge_length # 현재 다리의 상황
+    now_bridge_sum = sum(now_bridge) # 현재 다리위에 있는 트럭의 무게의 합
+    
+    while truck_weights:
+        
+        now_bridge_remove = now_bridge.pop(0)
+        if now_bridge_remove > 0: 
+            now_bridge_sum -= now_bridge_remove
+        
+        if now_bridge_sum + truck_weights[0] <= weight:
+            now_bridge_sum += truck_weights[0]
+            now_bridge.append(truck_weights.pop(0))
+        else:
+            now_bridge.append(0)
+        
+        time += 1
+            
+    time += bridge_length
+    
+    return time
