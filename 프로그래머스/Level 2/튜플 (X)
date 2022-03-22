@@ -1,0 +1,25 @@
+def solution(s):
+    
+    # 문자열로 s값을 준것에서 착안하여 "{ , }" 3 문자를 없애고 숫자는 정수 값으로 리스트에 넣어준다.
+    s = s.replace("{", "")
+    s = s.replace("}", "")
+    s = list(map(int, s.split(',')))
+    
+    hash = dict() # 해시를 이용해서 숫자의 빈도수를 계산한다.
+    
+    for i in s:
+        
+        if i in hash:
+            hash[i] += 1
+        else:
+            hash[i] = 1
+    
+    # value값을 기준으로 내림차순 정렬한다 (많이 나온 숫자가 제일 앞자리 부터 차지한다. - 예시 잘 보기)
+    tmp = sorted(hash.items(), key = lambda x : x[1], reverse=True)
+    
+    # value값을 기준으로 내림차순 정렬 됐으면 순서대로 key값을 넣어준다.
+    answer = []
+    for i, j in tmp:
+        answer.append(i)
+        
+    return answer
