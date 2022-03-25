@@ -1,0 +1,22 @@
+def solution(arr): # 분할 정복 문제
+    answer = [0, 0] # [0의 개수, 1의 개수]
+    n = len(arr)
+    
+    def compress(x, y, l): # 압축해주는 함수
+        num = arr[x][y]
+        
+        for i in range(x, x + l):
+            for j in range(y, y + l):
+                if arr[i][j] != num: # 배열 내부에 있는 수가 모두 같은 값이 아니라면 분할한다.
+                    l = l // 2
+                    compress(x, y, l)
+                    compress(x, y+l, l)
+                    compress(x+l, y, l)
+                    compress(x+l, y+l, l)
+                    return
+                
+        answer[num] += 1 # 배열 내부에 있는 수가 같은 값이라면 해당 숫자 개수를 +1 해준다.
+    
+    compress(0, 0, n)
+    
+    return answer
