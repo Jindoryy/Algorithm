@@ -1,0 +1,35 @@
+import sys
+from collections import deque
+
+def bfs(g, route, K, N):
+    q = deque([g])
+    table = [sys.maxsize] * (N+1)
+    table[1] = 0
+
+    while q:
+        st, dis = q.popleft()
+
+        for en, new_dis in route[st]:
+
+            if dis + new_dis <= K and dis + new_dis < table[en]:
+                table[en] = dis + new_dis
+                q.append([en, dis + new_dis])
+
+    return table
+
+def solution(N, road, K):
+
+    town_cnt = 0
+
+    route = [ [] for _ in range(N+1) ]
+
+    for a, b, dis in road:
+        route[a].append((b, dis))
+        route[b].append((a, dis))
+
+    lst = bfs([1, 0], route, K, N)
+    for i in lst:
+        if i != sys.maxsize:
+            town_cnt += 1
+
+    return town_cnt
